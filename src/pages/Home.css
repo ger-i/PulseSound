@@ -1,0 +1,153 @@
+/* Alapbeállítások */
+body, html {
+  margin: 0;
+  padding: 0;
+  font-family: Arial, sans-serif;
+  overflow-x: hidden;
+}
+
+/* Videó konténer */
+.video-container {
+  position: relative;
+  width: 100%;
+  height: auto;
+  overflow: hidden;
+}
+
+video {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+/* Videó szöveg */
+.video-text {
+  position: absolute;
+  top: 17%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: #25cacf;
+  text-align: center;
+  text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.6);
+  z-index: 1; /* A szöveg a videó fölött jelenik meg */
+}
+
+.video-text h1 {
+  font-size: clamp(2rem, 5vw, 3.5rem); /* Reszponzív betűméret */
+  margin: 0;
+  font-weight: bold;
+}
+
+.video-text p {
+  font-size: clamp(1.2rem, 3vw, 2rem); /* Reszponzív betűméret */
+  margin: 10px 0 0;
+}
+
+/* Konténerek elrendezése */
+.container-wrapper {
+  width: 100vw;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.row {
+  display: flex;
+  width: 100%;
+  gap: 10px; /* Egységes térköz az elemek között */
+  margin-bottom: 10px; /* Térköz a sorok között */
+}
+
+/* Széles és keskeny konténerek közös stílusai */
+.container-wide, .container-narrow {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 5px;
+}
+
+.container-wide {
+  flex: 6; /* Széles konténer aránya */
+}
+
+.container-narrow {
+  flex: 4; /* Keskeny konténer aránya */
+}
+
+/* Képek stílusai */
+.container-wide img, .container-narrow img {
+  width: 100%;
+  height: 48vh;
+  object-fit: cover;
+  border-radius: 8px; /* Kerekített sarkok */
+}
+
+/* Szöveges réteg */
+.text-overlay {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: white;
+  text-align: center;
+  text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.7);
+  padding: 20px;
+  background: rgba(0, 0, 0, 0.4);
+  border-radius: 8px;
+}
+
+.text-overlay h1 {
+  font-size: clamp(1.2rem, 3vw, 1.5rem); /* Reszponzív betűméret */
+  margin: 0;
+}
+
+.text-overlay p {
+  font-size: clamp(0.9rem, 2vw, 1rem); /* Reszponzív betűméret */
+  margin-top: 0.5em;
+}
+
+/* Gomb stílusai */
+.text-overlay button {
+  font-size: clamp(0.8rem, 2vw, 0.9rem); /* Reszponzív betűméret */
+  padding: 6px 12px;
+  margin-top: 0.6em;
+  width: auto; /* Gomb szélessége a tartalomhoz igazodik */
+  cursor: pointer;
+  background-color: #25cacf;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  transition: background-color 0.3s ease;
+}
+
+.text-overlay button:hover {
+  background-color: #1fa5a9; /* Gomb hover effekt */
+}
+
+/* Reszponzív stílusok */
+@media (max-width: 768px) {
+  .row {
+    flex-direction: column; /* Az elemek egymás alá kerülnek */
+    gap: 5px; /* Kisebb térköz */
+  }
+
+  .container-wide, .container-narrow {
+    flex: 1; /* Egyenlő szélesség */
+    margin: 5px 0; /* Függőleges margó */
+  }
+
+  .container-wide img, .container-narrow img {
+    height: 30vh; /* Kisebb magasság */
+  }
+
+  .text-overlay {
+    padding: 15px; /* Tömörebb elrendezés */
+  }
+
+  .text-overlay button {
+    font-size: 0.8rem; /* Kisebb betűméret */
+    padding: 5px 10px;
+    margin-top: 0.8em;
+  }
+}

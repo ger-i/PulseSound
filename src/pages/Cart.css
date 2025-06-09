@@ -1,0 +1,201 @@
+/* Alap kosár konténer */
+.cart {
+  display: flex; 
+  flex-direction: column; 
+  align-items: center; /* Középre igazítja a flex gyerekeit vízszintesen */ 
+  max-width: 800px; 
+  margin: 0 auto;
+}
+
+.cart .banner img { 
+  position: relative;
+  width: 100%;
+  max-width: 1920px;
+  margin: 0 auto;
+}
+
+.cart h2 {
+  text-align: center;
+  font-size: 2rem;
+  margin-bottom: 20px;
+  color: #ca7505
+}
+
+
+
+/* Kosár tételek listája */
+.cart ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.cart-item {
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid #e0e0e0;
+  padding: 15px 0;
+}
+
+.cart-item img {
+  width: 100px;
+  height: 100px;
+  object-fit: contain;
+  margin-right: 20px;
+  border-radius: 8px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.item-details {
+  flex-grow: 1;
+}
+
+.item-details h3 {
+  margin: 0 0 5px 0;
+  color: #4a4a4a;
+  font-size: 1.3rem;
+}
+
+.item-details p {
+  margin-top: 10px;
+  color: #666;
+  font-size: 1rem;
+  font-weight: bold;
+}
+
+
+
+/* Eltávolítás gomb */
+.item-details button {
+  background-color: #f44336;
+  border: none;
+  color: white;
+  padding: 8px 12px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 14px;
+  margin: 10px 0;
+  cursor: pointer;
+  border-radius: 4px;
+  transition: background-color 0.3s;
+}
+
+.item-details button:hover {
+  background-color: #d32f2f;
+}
+
+/* Teljes ár megjelenítése */
+.cart-total {
+  text-align: right;
+  font-weight: bold;
+  font-size: 18px;
+  margin-top: 20px;
+  color: #212121;
+  font-size: 1.1rem;
+}
+
+/* Rendelési űrlap */
+/* Rendelési űrlap */
+.order-form {
+  margin: 30px;
+  width: 100%;
+  max-width: 500px;
+  background-color: #f9f9f9;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.order-form h2 {
+  font-size: 1.8rem;
+  margin-bottom: 15px;
+  color: #ca7505;
+}
+
+.form-group {
+  margin-bottom: 15px;
+  display: flex;
+  flex-direction: column;
+}
+
+.form-group label {
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+
+.form-group input {
+  padding: 10px;
+  font-size: 1rem;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.form-group textarea {
+  resize: vertical;
+  height: 100px;
+}
+
+.order-form button[type="submit"] {
+  background-color: #4caf50;
+  color: white;
+  padding: 12px 20px;
+  border: none;
+  font-size: 1rem;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  margin: 0 auto; /* Ez központosítja a gombot */
+  display: block; /* Biztosítja, hogy a gomb blokkelemmé váljon */
+}
+
+.order-form button[type="submit"]:hover {
+  background-color: #45a049;
+}
+
+/* Rendelés visszaigazolása */
+.order-confirmation {
+  margin: 30px;
+  padding: 20px;
+  background-color: #f9f9f9;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  max-width: 500px;
+  width: 100%;
+}
+
+.order-confirmation h2 {
+  font-size: 1.8rem;
+  margin-bottom: 15px;
+  color: #4caf50; /* Zöld szín a siker jelzésére */
+}
+
+.order-confirmation p {
+  font-size: 1.1rem;
+  color: #4a4a4a;
+  margin-bottom: 20px;
+  font-weight: bold;
+}
+
+.order-confirmation ul {
+  list-style-type: none;
+  padding: 0;
+  text-align: left;
+  margin-bottom: 20px;
+}
+
+.order-confirmation li {
+  margin-bottom: 10px;
+  font-size: 1rem;
+  color: #666;
+}
+
+.order-confirmation li strong {
+  color: #212121;
+  font-weight: bold;
+}
+
+.order-confirmation ul li span {
+  font-weight: bold;
+}
