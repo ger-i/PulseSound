@@ -31,7 +31,6 @@
     border-radius: 8px;
     margin-bottom: 10px;
     object-fit: contain; /* A kép teljes tartalma látszik, de lehet üres hely a keretben. */
-
   }
   
   .product-card h2 {
@@ -141,5 +140,25 @@
     .banner-text p {
       font-size: 1.2rem;
       margin: 15px 0 0;
+    }
+  }
+
+  @media (max-width: 576px) {
+    .product-card img {
+    width: 10rem;
+    height: 10rem; /* Azonos magasság a képeknek */
+    border-radius: 8px;
+    margin-bottom: 10px;
+    object-fit: contain; /* A kép teljes tartalma látszik, de lehet üres hely a keretben. */
+    }
+
+    .product-card h2 {
+    font-size: 1rem;
+    margin: 40px 0;
+  }
+
+    .product-page h1 {
+      font-size: 1.5rem;
+      margin: 20px 0;
     }
   }
