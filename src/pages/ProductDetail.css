@@ -319,3 +319,11 @@
         font-size: 12px;
     }
 }
+
+/* Breakpoint for 576px */
+@media (max-width: 576px) {
+    .product-images {
+        flex-direction: column;
+        width: 90%;
+    }
+}
