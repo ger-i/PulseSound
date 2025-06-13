@@ -193,7 +193,19 @@
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
 }
 
-/* Tabletek (481px - 768px) */
+
+@media (max-width: 1200px) {
+  .nav-links li {
+    margin: 0rem 1rem;
+    margin-top: 1rem;
+  }
+
+  .nav-links a {
+    font-size: 1rem;
+  }
+}
+
+/* Tabletek (768px) */
 @media (max-width: 768px) {
   .menu-icon {
     display: flex;
@@ -224,6 +236,7 @@
     display: flex;
     flex-direction: column;
     margin-top: 2.5rem;
+    background-color: rgb(119, 223, 255);
   }
 
   .nav-links li {
@@ -244,19 +257,10 @@
   }
 }
 
-@media (max-width: 1200px) {
-  .nav-links li {
-    margin: 0rem 1rem;
-    margin-top: 1rem;
-  }
 
-  .nav-links a {
-    font-size: 1rem;
-  }
-}
-
-@media (max-width: 768px) {
-  .nav-links.visible {
-    background-color: rgb(119, 223, 255);
+/* Telefonok (576px) */
+@media (max-width: 576px) {
+  .search-bar {
+    width: 40%;
   }
 }
