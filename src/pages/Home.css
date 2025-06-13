@@ -151,3 +151,9 @@ video {
     margin-top: 0.8em;
   }
 }
+
+@media (max-width: 576px) {
+  .video-text {
+    top: 26%
+  }
+}
