@@ -69,9 +69,14 @@ footer p {
     align-items: center; /* Center links */
   }
 
+  footer .footer-links {
+  gap: 15px;
+}
+
   footer .footer-links li {
   font-size: 13px;
   }
+  
   footer p {
   margin-top: 12px;
   font-size: 14px;
