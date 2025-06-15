@@ -16,7 +16,7 @@ const Footer = () => {
             <li>Garancia</li>
             <li>Szállítás</li>
             <li>ÁSZF</li>
-            <li>PulseSound</li>
+            <li>Rólunk</li>
           </ul>
         </div>
       </div>
