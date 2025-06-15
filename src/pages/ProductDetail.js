@@ -39,6 +39,13 @@ const ProductDetail = () => {
         window.scrollTo(0, 0);
     }, []);
 
+    // Ez a useEffect fogja frissíteni a mainImage-et amikor új termékre navigálunk
+    useEffect(() => {
+        if (product && product.image) {
+            setMainImage(product.image);
+        }
+    }, [product]);
+
     if (!product) {
         return <h2>Termék nem található</h2>;
     }
