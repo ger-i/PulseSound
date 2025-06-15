@@ -52,3 +52,20 @@ footer p {
   margin: 0;
   font-size: 14px;
 }
+
+/* Telefonok (576px) */
+@media (max-width: 576px) {
+  .footer-content {
+    flex-direction: column; /* Stack content vertically */
+    align-items: center; /* Center items */
+  }
+  
+  footer .footer-links-container {
+    margin-left: 0; /* Eltávolítjuk a negatív margint mobil nézetben */
+  }
+  
+  .footer-links {
+    flex-direction: column; /* Stack links vertically */
+    align-items: center; /* Center links */
+  }
+}
