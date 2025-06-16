@@ -1,70 +1,160 @@
-# Getting Started with Create React App
+# PulseSound 🎧
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Egy modern, reszponzív audio eszközök webáruháza, amely React és React Router segítségével készült. A PulseSound egy teljes körű e-commerce megoldás fülhallgatók, fejhallgatók, hangszórók és mikrofonok értékesítésére.
 
-## Available Scripts
+## ✨ Funkciók
 
-In the project directory, you can run:
+### 🛒 E-commerce Alapfunkciók
+- **Termék böngészés**: Kategóriák szerint rendezett termékek
+- **Kosár kezelés**: Termékek hozzáadása, eltávolítása, mennyiség módosítása
+- **Rendelés leadás**: Teljes rendelési folyamat szállítási adatokkal
+- **Keresés**: Valós idejű termék keresés automatikus kiegészítéssel
 
-### `npm start`
+### 🎨 Felhasználói Élmény
+- **Reszponzív design**: Minden eszközön optimalizált megjelenés
+- **Dinamikus termék galéria**: Több kép megtekintése termékenkénti
+- **Részletes termékleírások**: Minden termékhez részletes információk
+- **Intuitív navigáció**: Egyszerű és gyors böngészés
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+### 🔧 Technikai Jellemzők
+- **React 18**: Modern hooks használata (useState, useContext, useEffect)
+- **React Router**: Dinamikus routing kategóriákhoz és termékekhez
+- **Context API**: Globális kosár állapot kezelés
+- **Responsive CSS**: Mobile-first megközelítés
+- **Optimalizált képkezelés**: Dinamikus képimportálás
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## 🚀 Telepítés és Indítás
 
-### `npm test`
+### Előfeltételek
+- Node.js (v14 vagy újabb)
+- npm vagy yarn
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### Telepítés
+```bash
+# Repository klónozása
+git clone [repository-url]
+cd pulsesound
 
-### `npm run build`
+# Függőségek telepítése
+npm install
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+# Fejlesztői szerver indítása
+npm start
+```
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+Az alkalmazás elérhető lesz a `http://localhost:3000` címen.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+### Build
+```bash
+# Produkciós build készítése
+npm run build
 
-### `npm run eject`
+# Tesztek futtatása
+npm test
+```
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+## 📁 Projekt Struktúra
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+```
+src/
+├── components/          # Újrafelhasználható komponensek
+│   ├── CartContext.js   # Kosár állapot kezelés
+│   ├── CategoryPage.js  # Kategória oldal komponens
+│   ├── Footer.js        # Lábléc komponens
+│   ├── NavFoot.js       # Layout wrapper
+│   ├── Navbar.js        # Navigációs bar
+│   └── ProductsData.js  # Termék adatok
+├── pages/              # Oldal komponensek
+│   ├── Cart.js         # Kosár oldal
+│   ├── Home.js         # Főoldal
+│   ├── ProductDetail.js # Termék részletek
+│   └── ProductPage.js   # Termék lista oldal
+├── images/             # Statikus képek
+│   ├── earbuds/        # Fülhallgató képek
+│   ├── headphones/     # Fejhallgató képek
+│   ├── speakers/       # Hangszóró képek
+│   └── microphones/    # Mikrofon képek
+└── styles/             # CSS fájlok
+```
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+## 🛍️ Termék Kategóriák
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+- **Fülhallgatók (Earbuds)**: Vezeték nélküli fülhallgatók
+- **Fejhallgatók (Headphones)**: Over-ear és on-ear fejhallgatók  
+- **Hangszórók (Speakers)**: Bluetooth és hordozható hangszórók
+- **Mikrofonok (Microphones)**: Podcast és streaming mikrofonok
 
-## Learn More
+## 🔄 Kosár Funkciók
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+- Termékek hozzáadása egyedi mennyiséggel
+- Mennyiség módosítása a kosárban
+- Termékek eltávolítása
+- Automatikus összeg számítás
+- Rendelés leadás űrlappal
+- Email és cím validáció
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+## 🎯 Főbb Komponensek
 
-### Code Splitting
+### CartContext
+Globális állapot kezelő a kosár funkciókhoz:
+- `addToCart()` - Termék hozzáadása
+- `removeFromCart()` - Termék eltávolítása  
+- `updateQuantity()` - Mennyiség frissítése
+- `getCartTotal()` - Végösszeg számítása
+- `getCartCount()` - Termékek száma
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+### Navbar
+- Reszponzív navigáció
+- Valós idejű keresés
+- Kosár számláló
+- Mobil menü
 
-### Analyzing the Bundle Size
+### ProductDetail
+- Termék képek galériája
+- Részletes leírások
+- Kosárba helyezés funkció
+- Mennyiség választó
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+## 🎨 Design Rendszer
 
-### Making a Progressive Web App
+- **Színpaletta**: Modern, minimalista design
+- **Tipográfia**: Tiszta, olvasható betűtípusok
+- **Képek**: Optimalizált termékfotók
+- **Animációk**: Smooth hover effektek
+- **Reszponzivitás**: Mobile-first megközelítés
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+## 🔧 Használt Technológiák
 
-### Advanced Configuration
+- **React 18** - UI komponens könyvtár
+- **React Router v6** - Routing és navigáció
+- **Context API** - Állapot kezelés
+- **CSS3** - Styling és animációk
+- **PropTypes** - Típus ellenőrzés
+- **ES6+** - Modern JavaScript
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+## 📱 Reszponzív Design
 
-### Deployment
+Az alkalmazás teljes mértékben reszponzív és optimalizált:
+- **Desktop**: Teljes funkciókészlet
+- **Tablet**: Adaptált layout
+- **Mobile**: Touch-optimalizált interfész
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+## 🤝 Közreműködés
 
-### `npm run build` fails to minify
+1. Fork-old a projektet
+2. Készíts egy feature branch-et (`git checkout -b feature/UjFunkció`)
+3. Commitold a változásokat (`git commit -m 'Új funkció hozzáadása'`)
+4. Push-old a branch-et (`git push origin feature/UjFunkció`)
+5. Nyiss egy Pull Request-et
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+## 📄 Licenc
+
+Ez a projekt MIT licenc alatt áll. További részletekért lásd a `LICENSE` fájlt.
+
+## 👨‍💻 Szerző
+
+**Geri** - PulseSound by Geri
+
+---
+
+⭐ Ha tetszik a projekt, adj neki egy csillagot a GitHubon!
