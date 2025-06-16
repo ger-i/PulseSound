@@ -115,13 +115,23 @@ Globális állapot kezelő a kosár funkciókhoz:
 - Kosárba helyezés funkció
 - Mennyiség választó
 
-## 🎨 Design Rendszer
+## 🎨 Design Rendszer & CSS Jellemzők
 
-- **Színpaletta**: Modern, minimalista design
+### Erősségek:
+- **Reszponzív design**: Több breakpoint használata (1200px, 768px, 576px)
+- **Flexbox és Grid**: Modern layout technikák alkalmazása
+- **Hover effektek**: Interaktív elemek a jobb user experience érdekében
+- **Átgondolt színpaletta**: Konzisztens színhasználat
+  - Primer: `#25cacf` (türkiz)
+  - Szekundér: `#ca7505` (narancs)
+  - Accent: `#9f2ccc` (lila)
+
+### Design Elemek:
 - **Tipográfia**: Tiszta, olvasható betűtípusok
-- **Képek**: Optimalizált termékfotók
-- **Animációk**: Smooth hover effektek
-- **Reszponzivitás**: Mobile-first megközelítés
+- **Képek**: Optimalizált termékfotók galériával
+- **Animációk**: Smooth átmenetek és hover effektek
+- **Layout**: Mobile-first megközelítés
+- **UI/UX**: Intuitív felhasználói interfész
 
 ## 🔧 Használt Technológiák
 
