@@ -18,11 +18,12 @@
     text-align: center;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     cursor: pointer; /* Pointer mutató */
-    transition: transform 0.2s ease; /* Animáció */
+    transition: all 0.3s ease; /* Animáció */
   }
   
   .product-card:hover {
-    transform: scale(1.05); /* Kicsit nagyít, ha fölé viszed az egeret */
+    transform: translateY(-5px);  /* Felfelé emelés */
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
   }
   
   .product-card img {
@@ -75,8 +76,8 @@
   
   .banner-text {
     position: absolute;
-    top: 40%;
-    left: 75%;
+    top: 50%;
+    left: 50%;  /* Központosítás */
     transform: translate(-50%, -50%);
     text-align: center;
     /*background-color: rgba(0, 0, 0, 0.5); /* Átlátszó fekete háttér */
