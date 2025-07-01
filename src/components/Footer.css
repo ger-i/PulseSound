@@ -15,7 +15,7 @@ footer.footer-pulsesound {
   width: 100%;
 }
 
-footer .footer-logo {
+.footer-logo {
   display: flex;
   justify-content: center; /* Center the logo */
   padding-left: 20px;
@@ -23,14 +23,14 @@ footer .footer-logo {
   height: auto;
 }
 
-footer .footer-links-container {
+.footer-links-container {
   display: flex;
   justify-content: center; /* Center the links */
   flex-grow: 1;
   margin-left: -10rem;
 }
 
-footer .footer-links {
+.footer-links {
   list-style: none;
   padding: 0;
   margin: 0;
@@ -38,11 +38,11 @@ footer .footer-links {
   gap: 25px;
 }
 
-footer .footer-links li {
+.footer-links li {
   font-size: 16px;
 }
 
-footer .footer-credits {
+.footer-credits {
   width: 100%;
   text-align: center;
   margin-top: 5px;
@@ -51,6 +51,7 @@ footer .footer-credits {
 footer p {
   margin: 0;
   font-size: 14px;
+  color: #bdc3c7; /* Lighter text color for better contrast */
 }
 
 /* Telefonok (576px) */
@@ -60,7 +61,7 @@ footer p {
     align-items: center; /* Center items */
   }
   
-  footer .footer-links-container {
+  .footer-links-container {
     margin-left: 0; /* Eltávolítjuk a negatív margint mobil nézetben */
   }
   
@@ -69,11 +70,11 @@ footer p {
     align-items: center; /* Center links */
   }
 
-  footer .footer-links {
+  .footer-links {
   gap: 15px;
-}
+ }
 
-  footer .footer-links li {
+  .footer-links li {
   font-size: 13px;
   }
   
