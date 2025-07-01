@@ -113,7 +113,7 @@ const Nav = () => {
             className={({ isActive }) => (isActive ? "active" : "")}
             onClick={toggleMenu}
           >
-            Füllhallgatók
+            Fülhallgatók
           </NavLink>
         </li>
         <li>
