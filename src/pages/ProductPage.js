@@ -76,7 +76,7 @@ const ProductPage = ({ title, bannerImage, products }) => {
                         >
                             <img src={product.image} alt={product.name} />
                             <h2>{product.name}</h2>
-                            <p>{product.price} Ft</p>
+                            <p>{product.price.toLocaleString('hu-HU')} Ft</p>
                         </div>
                     ))
                 ) : (
