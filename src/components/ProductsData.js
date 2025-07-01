@@ -1,8 +1,10 @@
 const importAll = (r) => {
     const images = {};
     r.keys().forEach((key) => {
-        const fileName = key.replace('./', ''); // Eltávolítja az './'-t az útvonalból
-        images[fileName] = r(key);
+        const fileName = key.replace('./', '').replace(/\.\w+$/, ''); // Kiterjesztés nélkül is használható
+        const fullFileName = key.replace('./', ''); // Teljes fájlnévvel is elérhető
+        images[fullFileName] = r(key);  // Teljes fájlnévvel is elérhető
+        images[fileName] = r(key); // Mindkét változat elérhető
     });
     return images;
 };
