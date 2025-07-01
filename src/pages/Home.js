@@ -33,7 +33,7 @@ const Home = () => {
     <div>
       {/* Videó szekció */}
       <div className="video-container">
-        <video autoPlay loop muted style={{ width: '100%', height: 'auto' }}>
+        <video autoPlay loop muted playsInline style={{ width: '100%', height: 'auto' }}> 
           <source
             src="https://videos.pexels.com/video-files/7710237/7710237-hd_2048_1080_25fps.mp4"
             type="video/mp4"
