@@ -9,22 +9,22 @@
 // A termék oldalának betöltésekor az oldal tetejére görget a useEffect() hook segítségével, amely az oldal betöltődésekor fut le.
 // Ha a termék nem található, akkor a felhasználó számára egy hibaüzenetet jelenít meg.
 
-import React, { useState, useContext, useEffect } from 'react'; 
+import React, { useState, useContext, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import products from '../components/ProductsData';
-import CartContext from '../components/CartContext'; 
+import CartContext from '../components/CartContext';
 import './ProductDetail.css';
 
-const ProductDetail = () => {   
+const ProductDetail = () => {
     const { id } = useParams();
     const product = products.find(item => item.id === parseInt(id, 10));
-    const [quantity, setQuantity] = useState(1); 
-    const { addToCart } = useContext(CartContext); 
+    const [quantity, setQuantity] = useState(1);
+    const { addToCart } = useContext(CartContext);
     const [mainImage, setMainImage] = useState(product ? product.image : '');
 
     const handleAddToCart = () => {
         if (product) {
-            addToCart({ ...product, quantity }); 
+            addToCart({ ...product, quantity });
         }
     };
 
@@ -55,7 +55,7 @@ const ProductDetail = () => {
             <div className="product-description">
                 <div className="product-text">
                     <h1>{product.name}</h1>
-                    <p>{product.descriptions[0].text}</p> 
+                    <p>{product.descriptions?.[0]?.text || 'Leírás nem elérhető'}</p>
                     <p>Ár: {product.price} Ft</p>
                 </div>
                 <div className="quantity-container">
@@ -91,16 +91,17 @@ const ProductDetail = () => {
             </div>
 
             <div className="image-details">
-                {product.dimages && product.dimages.map((image, index) => (
+                {product.dimages && product.descriptions && product.dimages.map((image, index) => (
                     <div key={index} className="image-description">
                         <img
-                            src={image}
-                            alt={`${product.name} ${index + 1}`}
-                            style={{ cursor: "default" }}
+                            src={image} 
+                            alt={`${product.name} ${index + 1}`}    
+                            loading="lazy"  // Csak akkor töltődik be, ha a felhasználó eléri a képet
+                            style={{ cursor: "default" }}   
                         />
                         <div className="text-container">
-                            <h3>{product.descriptions[index].title}</h3> 
-                            <p>{product.descriptions[index].text}</p>   
+                            <h3>{product.descriptions[index]?.title || `Tulajdonság ${index + 1}`}</h3>
+                            <p>{product.descriptions[index]?.text || 'Leírás nem elérhető'}</p>
                         </div>
                     </div>
                 ))}
