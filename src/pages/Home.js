@@ -23,7 +23,7 @@ import mics from '../images/mics.jpg';               // Mikrofonok kategória ba
 
 /**
  * Home komponens - Főoldal renderelése
-*/
+ */
 const Home = () => {
   const navigate = useNavigate(); // Programozott navigáció hook
 
