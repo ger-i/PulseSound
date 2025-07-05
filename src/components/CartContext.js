@@ -1,10 +1,36 @@
+/**
+ * CartContext - Kosár állapotkezelő Context
+ * 
+ * Ez a Context API-t használja a kosár állapotának globális kezelésére.
+ * Tartalmazza a kosár műveleteit és az adatok localStorage-ban történő mentését.
+ * 
+ * Funkcionalitás:
+ * - Kosár elemek tárolása és kezelése
+ * - LocalStorage integráció (adatok megmaradnak újratöltés után)
+ * - Kosár műveletek (hozzáadás, eltávolítás, frissítés, ürítés)
+ * - Számítások (összeg, darabszám)
+ * - Error handling minden műveletnél
+ */
+
 import React, { createContext, useState, useEffect } from 'react';
 
+// ===== CONTEXT LÉTREHOZÁSA =====
 const CartContext = createContext();
 
+/**
+ * CartProvider komponens
+ * A Context Provider wrapper komponens, amely az egész alkalmazást körülveszi
+ */
 export const CartProvider = ({ children }) => {
-  // Inicializáljuk a kosár elemeket a helyi tárolóból, ha léteznek
-  // Ha nincs, akkor egy üres tömböt adunk vissza
+  
+  // ===== STATE INICIALIZÁLÁS =====
+  
+  /**
+   * Kosár elemek state inicializálása
+   * - Először megpróbálja betölteni a localStorage-ból
+   * - Ha nincs mentett adat vagy hiba van, üres tömböt ad vissza
+   * - Try-catch blokkban van a JSON.parse hibák elkerülése végett
+   */
   const [cartItems, setCartItems] = useState(() => {
     try {
       const savedCart = localStorage.getItem('cartItems');
@@ -15,8 +41,14 @@ export const CartProvider = ({ children }) => {
     }
   });
 
-  // Minden alkalommal, amikor a kosár elemek változnak, elmentjük őket a helyi tárolóba
-  // Ez lehetővé teszi, hogy a kosár tartalma megmaradjon
+  // ===== LOCALSTORAGE SZINKRONIZÁLÁS =====
+  
+  /**
+   * CartItems változásainak figyelése és localStorage-ba mentése
+   * - Minden alkalommal fut, amikor a cartItems változik
+   * - Biztosítja az adatok megmaradását böngésző újratöltés után
+   * - Error handling a localStorage írási hibák kezelésére
+   */
   useEffect(() => {
     try {
       localStorage.setItem('cartItems', JSON.stringify(cartItems));
@@ -25,9 +57,13 @@ export const CartProvider = ({ children }) => {
     }
   }, [cartItems]);
 
-  // Kosár műveletek
-  // A kosár műveletekhez szükséges függvények, mint péld as addToCart, removeFromCart, updateQuantity, clearCart, getCartTotal, getCartCount és isCartEmpty
+  // ===== KOSÁR MŰVELETEK =====
+  
+  /**
+   * Termék hozzáadása a kosárhoz
+   */
   const addToCart = (product) => {
+    // Bemeneti adatok validálása
     if (!product?.id || !product?.quantity || !product?.price || !product?.name) {
       console.error("Hiányos termék adatok");
       return false;
@@ -35,14 +71,18 @@ export const CartProvider = ({ children }) => {
 
     try {
       setCartItems((prevItems) => {
+        // Meglévő termék keresése az ID alapján
         const existingItem = prevItems.find((item) => item.id === product.id);
+        
         if (existingItem) {
+          // Ha már van a kosárban, mennyiség növelése
           return prevItems.map((item) =>
             item.id === product.id
               ? { ...item, quantity: item.quantity + product.quantity }
               : item
           );
         } else {
+          // Új termék hozzáadása (csak szükséges mezők)
           const { id, name, price, image, quantity } = product;
           return [...prevItems, { id, name, price, image, quantity }];
         }
@@ -54,21 +94,28 @@ export const CartProvider = ({ children }) => {
     }
   };
 
-  // Eltávolítja a terméket a kosárból a termék azonosítója alapján
-  // Ha a termék nem található, akkor nem történik semmi
+  /**
+   * Termék eltávolítása a kosárból
+   * @param {number} productId - Eltávolítandó termék azonosítója
+   * @returns {boolean} - Sikeres volt-e a művelet
+   */
   const removeFromCart = (productId) => {
     try {
-      setCartItems((prevItems) => prevItems.filter((item) => item.id !== productId));
+      setCartItems((prevItems) => 
+        prevItems.filter((item) => item.id !== productId)
+      );
       return true;
     } catch (error) {
       console.error('Hiba a termék eltávolítása során:', error);
       return false;
     }
   };
-  // Frissíti a termék mennyiségét a kosárban
-  // Ha a mennyiség kisebb, mint 1, akkor hibaüzenetet ír ki
-  // Ha a termék nem található, akkor nem történik semmi
+
+  /**
+   * Termék mennyiségének frissítése a kosárban
+   */
   const updateQuantity = (productId, newQuantity) => {
+    // Mennyiség validálása
     const quantity = parseInt(newQuantity, 10);
     if (quantity < 1) {
       console.error("A mennyiség legalább 1 kell legyen");
@@ -87,8 +134,10 @@ export const CartProvider = ({ children }) => {
       return false;
     }
   };
-  // Törli az összes terméket a kosárból
-  // Ha a kosár már üres, akkor nem történik semmi
+
+  /**
+   * Teljes kosár ürítése
+   */
   const clearCart = () => {
     try {
       setCartItems([]);
@@ -99,6 +148,11 @@ export const CartProvider = ({ children }) => {
     }
   };
 
+  // ===== SZÁMÍTÁSI FÜGGVÉNYEK =====
+
+  /**
+   * Kosár teljes összegének kiszámítása
+   */
   const getCartTotal = () => {
     try {
       return cartItems.reduce((acc, item) => acc + (item.price * item.quantity), 0);
@@ -108,6 +162,9 @@ export const CartProvider = ({ children }) => {
     }
   };
 
+  /**
+   * Kosárban lévő termékek összes darabszámának kiszámítása
+   */
   const getCartCount = () => {
     try {
       return cartItems.reduce((acc, item) => acc + item.quantity, 0);
@@ -117,18 +174,32 @@ export const CartProvider = ({ children }) => {
     }
   };
 
+  /**
+   * Kosár üres állapotának ellenőrzése
+   */
   const isCartEmpty = () => cartItems.length === 0;
 
+  // ===== CONTEXT PROVIDER RENDER =====
+
+  /**
+   * Context Provider, amely az összes kosár funkciót elérhetővé teszi
+   * a gyermek komponensek számára
+   */
   return (
     <CartContext.Provider
       value={{
+        // Kosár adatok
         cartItems,
+        
+        // Kosár műveletek
         addToCart,
         removeFromCart,
+        updateQuantity,
         clearCart,
+        
+        // Számítási függvények
         getCartTotal,
         getCartCount,
-        updateQuantity,
         isCartEmpty,
       }}
     >
