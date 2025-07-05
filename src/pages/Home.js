@@ -10,8 +10,8 @@
  */
 
 import React from 'react';
-import { useNavigate } from 'react-router-dom'; // React Router navigációhoz
-import './Home.css'; // Home komponens specifikus stílusok
+import { useNavigate } from 'react-router-dom';      // React Router navigációhoz
+import './Home.css'; 
 import pod_1 from '../images/earbuds/pod2d.jpg';     // Kiemelt fülhallgató termék
 import pods from '../images/pods.jpg';               // Fülhallgatók kategória banner
 import head_1 from '../images/headphones/hph7e.jpg'; // Kiemelt fejhallgató termék
