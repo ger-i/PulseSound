@@ -87,7 +87,7 @@ const ProductPage = ({ title, bannerImage, products }) => {
             </div>
 
             {/* Főcím a banner alatt */}
-            <h1>Fedezze fel termékeinket</h1>
+            <h1 className="section-title">Fedezze fel termékeinket</h1>
 
             {/* Rendezési opciók dropdown */}
             <div className="sort-options">
