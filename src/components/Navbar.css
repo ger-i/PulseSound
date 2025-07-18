@@ -30,6 +30,7 @@
   border: 1px solid #ccc;
   border-radius: 5px 0 0 5px;
   outline: none;
+  max-width: 100%;
 }
 
 .search-bar button {
@@ -182,14 +183,16 @@
   }
 
   .search-bar {
-    width: 34%;
-    display: flex;
-    align-items: center;
+    width: 32%;
+  }
+
+  .search-bar input {
+    max-width: 90%;
   }
 
   .search-suggestions {
     top: 70%;
-    right: 30%;
+    right: 31%;
     width: 40%;
   }
 
