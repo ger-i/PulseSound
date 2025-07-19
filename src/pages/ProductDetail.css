@@ -168,11 +168,15 @@
 /* Responsive Design */
 @media (max-width: 1200px) {
     .product-description {
-        top: 14%;
+        top: 18%;
+    }
+
+    .product-text h1 {
+        font-size: 1.4rem;
     }
 
     .product-text p {
-        font-size: 1.3rem;
+        font-size: 1.2rem;
         margin-left: 5px;
         margin-right: 10px;
     }
@@ -180,6 +184,10 @@
     .product-images {
         flex-direction: column;
         margin: 20px;
+    }
+
+        .quantity-container {
+        margin-top: 8px;
     }
 
     .image-viewer {
@@ -216,14 +224,6 @@
     .product-description {
         position: static;
         padding: 20px;
-    }
-
-    .product-text h1 {
-        font-size: 1.5rem;
-    }
-
-    .product-text p {
-        font-size: 1.2rem;
     }
 
     .product-text p:last-child {
