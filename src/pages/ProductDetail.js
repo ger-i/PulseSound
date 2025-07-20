@@ -11,7 +11,6 @@
  * - Kosárba helyezés funkció
  * - Responsive design támogatás
  */
-
 import React, { useState, useContext, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import products from '../components/ProductsData';
@@ -19,100 +18,76 @@ import CartContext from '../components/CartContext';
 import './ProductDetail.css';
 
 const ProductDetail = () => {
-    // ===== HOOK-OK ÉS STATE VÁLTOZÓK =====
     
-    // URL paraméterből kinyert termék ID
+    // URL paraméterből kinyerjük a termék ID-ját
     const { id } = useParams();
     
-    // Termék megkeresése az ID alapján a products tömbből
+    // A termék megkeresése az adatbázisban az ID alapján
     const product = products.find(item => item.id === parseInt(id, 10));
     
-    // Mennyiség state - alapértelmezett érték: 1
-    const [quantity, setQuantity] = useState(1);
-    
-    // CartContext-ből importált addToCart függvény
-    const { addToCart } = useContext(CartContext);
-    
-    // Főkép state - alapértelmezett érték a termék első képe
-    const [mainImage, setMainImage] = useState(product ? product.image : '');
-
-    // ===== EVENT HANDLER FÜGGVÉNYEK =====
+    // State-ek inicializálása
+    const [quantity, setQuantity] = useState(1); // Kiválasztott mennyiség (alapértelmezett: 1)
+    const { addToCart } = useContext(CartContext); // Kosár context elérése
+    const [mainImage, setMainImage] = useState(product ? product.image : ''); // Főkép állapota
     
     /**
-     * Kosárba helyezés kezelője
-     * Hozzáadja a terméket a kosárhoz a beállított mennyiséggel
+     * Kosárba helyezés kezelő függvény
+     * A terméket hozzáadja a kosárhoz a kiválasztott mennyiséggel
      */
     const handleAddToCart = () => {
         if (product) {
             addToCart({ ...product, quantity });
         }
     };
-
-    /**
-     * Mennyiség változás kezelője
-     * Biztosítja, hogy csak pozitív értékek kerüljenek be
-     * @param {Event} e - Input change event
-     */
-    const handleQuantityChange = (e) => {
-        const value = parseInt(e.target.value, 10);
-        if (value > 0) {
-            setQuantity(value);
-        }
-    };
-
-    // ===== EFFECT HOOK-OK =====
     
     /**
-     * Oldal betöltésekor az oldal tetejére görget
-     * Csak egyszer fut le a komponens mount-jánál
+     * Komponens betöltésekor az oldal tetejére görget
+     * Biztosítja, hogy minden termék megnyitásakor az oldal tetején legyünk
      */
     useEffect(() => {
         window.scrollTo(0, 0);
     }, []);
-
+    
     /**
-     * Főkép frissítése új termékre navigáláskor
-     * Fut le minden alkalommal, amikor a product objektum változik
+     * Főkép beállítása a termék változásakor
+     * Ha új terméket töltünk be, a főképet is frissíti
      */
     useEffect(() => {
         if (product && product.image) {
             setMainImage(product.image);
         }
     }, [product]);
-
-    // ===== ERROR HANDLING =====
     
-    /**
-     * Ha a termék nem található, hibaüzenetet jelenít meg
-     */
+    // Ha nincs termék (hibás ID), hibaüzenet megjelenítése
     if (!product) {
         return <h2>Termék nem található</h2>;
     }
-
-    // ===== RENDER =====
     
     return (
         <div className="product-detail">
             
-            {/* ===== TERMÉK ALAPADATOK SZEKCIÓ ===== */}
+            {/* TERMÉK ALAPINFORMÁCIÓI SZEKCIÓ */}
             <div className="product-description">
                 <div className="product-text">
                     {/* Termék neve */}
                     <h1>{product.name}</h1>
                     
-                    {/* Termék első leírása (ha van) */}
+                    {/* Termék leírása - fallback szöveggel */}
                     <p>{product.descriptions?.[0]?.text || 'Leírás nem elérhető'}</p>
                     
                     {/* Termék ára */}
                     <p>Ár: {product.price} Ft</p>
                 </div>
                 
-                {/* ===== MENNYISÉG ÉS KOSÁRBA HELYEZÉS ===== */}
+                {/* MENNYISÉG KIVÁLASZTÓ ÉS KOSÁRBA HELYEZÉS SZEKCIÓ */}
                 <div className="quantity-container">
                     <label htmlFor="quantity">MENNYISÉG:</label>
+                    
+                    {/* Számkiválasztó input custom gombokkal */}
                     <div className="number-input-container">
-                        <button
-                            type="button"
+                        {/* Csökkentő gomb - 1 alatt nem mehet */}
+                        <button 
+                            type="button" 
                             className="number-control minus"
                             onClick={() => setQuantity(prev => Math.max(1, prev - 1))}
                             disabled={quantity <= 1}
@@ -120,6 +95,8 @@ const ProductDetail = () => {
                         >
                             −
                         </button>
+                        
+                        {/* Mennyiség megjelenítő mező - csak olvasható */}
                         <input
                             type="number"
                             id="quantity"
@@ -128,8 +105,10 @@ const ProductDetail = () => {
                             readOnly
                             min="1"
                         />
-                        <button
-                            type="button"
+                        
+                        {/* Növelő gomb */}
+                        <button 
+                            type="button" 
                             className="number-control plus"
                             onClick={() => setQuantity(prev => prev + 1)}
                             aria-label="Növelés"
@@ -137,49 +116,53 @@ const ProductDetail = () => {
                             +
                         </button>
                     </div>
-                    <button onClick={handleAddToCart}>KOSÁRBA TESZEM</button>
+                    
+                    {/* Kosárba helyezés gomb */}
+                    <button className="add-to-cart-btn" onClick={handleAddToCart}>
+                        KOSÁRBA TESZEM
+                    </button>
                 </div>
             </div>
-
-            {/* ===== KÉPEK SZEKCIÓ ===== */}
+            
+            {/* TERMÉKKÉPEK SZEKCIÓ */}
             <div className="product-images">
-                
-                {/* Főkép megjelenítése */}
+                {/* Nagy főkép megjelenítése */}
                 <div className="main-image">
                     <img src={mainImage} alt={product.name} />
                 </div>
                 
-                {/* Képek közötti váltás - thumbnail galéria */}
+                {/* Kiskép galéria - főkép váltáshoz */}
                 <div className="image-viewer">
                     {product.images && product.images.map((image, index) => (
                         <div
                             key={index}
-                            className="thumbnail"
-                            onClick={() => setMainImage(image)} // Főkép váltása kattintásra
-                            style={{ cursor: "pointer" }}
+                            className={`thumbnail ${mainImage === image ? 'active' : ''}`} // Aktív kiskép kiemelése
+                            onClick={() => setMainImage(image)} // Főkép váltás kattintásra
                         >
                             <img src={image} alt={`${product.name} ${index + 1}`} />
                         </div>
                     ))}
                 </div>
             </div>
-
-            {/* ===== RÉSZLETES LEÍRÁSOK KÉPEKKEL ===== */}
+            
+            {/* RÉSZLETES TERMÉKLEÍRÁSOK KÉPEKKEL SZEKCIÓ */}
             <div className="image-details">
+                {/* Minden részletes képhez tartozó leírás megjelenítése */}
                 {product.dimages && product.descriptions && product.dimages.map((image, index) => (
                     <div key={index} className="image-description">
-                        
-                        {/* Részletes kép lazy loading-gal */}
+                        {/* Részletes kép lazy loading-gal a teljesítmény optimalizálásához */}
                         <img
                             src={image} 
                             alt={`${product.name} ${index + 1}`}    
-                            loading="lazy"  // Csak akkor töltődik be, ha a felhasználó eléri a képet
-                            style={{ cursor: "default" }}   
+                            loading="lazy"
                         />
                         
-                        {/* Hozzátartozó szöveges leírás */}
+                        {/* Hozzátartozó szöveges tartalom */}
                         <div className="text-container">
+                            {/* Szekció címe - fallback címmel */}
                             <h3>{product.descriptions[index]?.title || `Tulajdonság ${index + 1}`}</h3>
+                            
+                            {/* Szekció leírása - fallback szöveggel */}
                             <p>{product.descriptions[index]?.text || 'Leírás nem elérhető'}</p>
                         </div>
                     </div>
