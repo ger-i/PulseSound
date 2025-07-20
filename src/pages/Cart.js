@@ -146,7 +146,7 @@ const Cart = () => {
                             +
                           </button>
                         </div>
-                        <span> = {formatPrice(parseInt(item.price) * parseInt(item.quantity))} Ft</span>
+                        <span key={`${item.id}-${item.quantity}`}> = {formatPrice(parseInt(item.price) * parseInt(item.quantity))} Ft</span>
                       </div>
                       <button
                         className="remove-btn"
