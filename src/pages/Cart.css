@@ -31,14 +31,14 @@
   list-style-type: none;
   padding: 0;
 }
-
+/* Kosár tételek stílusa */
 .cart-item {
   display: flex;
   align-items: center;
   border-bottom: 1px solid #e0e0e0;
   padding: 15px 0;
 }
-
+/* Kosár tételek részletei */
 .cart-item img {
   width: 100px;
   height: 100px;
@@ -59,13 +59,23 @@
   color: #666;
   font-weight: bold;
 }
+/* Kosár tételek árának stílusa */
+.quantity-btn {
+  width: 35px;
+  height: 35px;
+}
+/* Kosár tételek mennyiségének növelése/csökkentése gombok */
+.quantity-btn:hover:not(:disabled) {
+  background-color: #d32f2f;
+}
+/* Kosár tételek mennyiségének növelése/csökkentése gombok alap stílusa */
+.quantity-btn:active:not(:disabled) {
+  background-color: #d0d0d0;
+}
 
-.item-details input[type="number"] {
-  width: 60px;
-  padding: 8px;
-  text-align: center;
-  border: 1px solid #ddd;
-  border-radius: 5px;
+.quantity-display {
+  font-weight: bold;
+  margin: 0 10px 0 10px;
 }
 
 /* Eltávolítás gomb */
