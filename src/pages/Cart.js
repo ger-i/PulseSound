@@ -1,27 +1,40 @@
-import React, { useContext, useState, useEffect } from 'react'; // Import useEffect
+import React, { useContext, useState, useEffect } from 'react';
 import CartContext from '../components/CartContext';
 import bannerImage from '../images/cart2b.jpg';
 import './Cart.css';
 
 const Cart = () => {
   const { cartItems, removeFromCart, clearCart, updateQuantity } = useContext(CartContext);
-
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [zip, setZip] = useState('');
   const [city, setCity] = useState('');
   const [street, setStreet] = useState('');
   const [houseNumber, setHouseNumber] = useState('');
-
   const [orderSubmitted, setOrderSubmitted] = useState(false);
   const [error, setError] = useState('');
-  const [orderTotal, setOrderTotal] = useState(0); // Initialize orderTotal
+  const [orderTotal, setOrderTotal] = useState(0);
 
-  // Use useEffect to recalculate total whenever cartItems change
+  // Segédfüggvény a számok formázásához - mobilbarát verzió
+  const formatPrice = (price) => {
+    // parseInt-tel biztosítjuk, hogy szám legyen, majd saját formázás
+    const numPrice = parseInt(price) || 0;
+    return numPrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ' ');
+  };
+
+  // useEffect a total újraszámításához - force re-render mobilon
   useEffect(() => {
-    const total = cartItems.reduce((sum, item) => sum + item.price * item.quantity, 0);
-    setOrderTotal(total);
-  }, [cartItems]); // Dependency array: run this effect whenever cartItems changes
+    const total = cartItems.reduce((sum, item) => {
+      const itemPrice = parseInt(item.price) || 0;
+      const itemQuantity = parseInt(item.quantity) || 0;
+      return sum + (itemPrice * itemQuantity);
+    }, 0);
+    
+    // Kis késleltetés a mobilos renderelési problémák elkerülésére
+    setTimeout(() => {
+      setOrderTotal(total);
+    }, 0);
+  }, [cartItems]);
 
   const validateEmail = (email) => {
     const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -47,21 +60,16 @@ const Cart = () => {
       return;
     }
 
-    // orderTotal is already updated by useEffect, no need to recalculate here for submission
-    // const total = cartItems.reduce((sum, item) => sum + item.price * item.quantity, 0);
-    // setOrderTotal(total); // This line can be removed as useEffect handles it
-
     const orderDetails = {
       name,
       email,
       address: `${zip}, ${city}, ${street} ${houseNumber}`,
       items: cartItems,
-      total: orderTotal.toFixed(2), // Use the updated orderTotal
+      total: orderTotal,
     };
 
     console.log('Order Submitted:', orderDetails);
     alert('Köszönjük a rendelést!');
-
     clearCart();
     setOrderSubmitted(true);
   };
@@ -69,6 +77,15 @@ const Cart = () => {
   const handleQuantityChange = (id, newQuantity) => {
     if (newQuantity >= 1 && !isNaN(newQuantity)) {
       updateQuantity(id, newQuantity);
+      // Force refresh mobilon
+      setTimeout(() => {
+        const newTotal = cartItems.reduce((sum, item) => {
+          const itemPrice = parseInt(item.price) || 0;
+          const itemQuantity = item.id === id ? newQuantity : (parseInt(item.quantity) || 0);
+          return sum + (itemPrice * itemQuantity);
+        }, 0);
+        setOrderTotal(newTotal);
+      }, 50);
     }
   };
 
@@ -93,13 +110,12 @@ const Cart = () => {
             <li><span>Név:</span> {name}</li>
             <li><span>E-mail:</span> {email}</li>
             <li><span>Szállítási cím:</span> {zip}, {city}, {street} {houseNumber}</li>
-            <li><span>Összeg:</span> {orderTotal.toLocaleString()} Ft</li>
+            <li><span>Összeg:</span> {formatPrice(orderTotal)} Ft</li>
           </ul>
         </div>
       ) : (
         <>
           <h2>A kosár tartalma:</h2>
-
           {cartItems.length === 0 ? (
             <p className="empty-cart-message">A kosarad üres.</p>
           ) : (
@@ -108,12 +124,10 @@ const Cart = () => {
                 <li key={item.id}>
                   <div className="cart-item">
                     <img src={item.image} alt={item.name} />
-
                     <div className="item-details">
                       <h3>{item.name}</h3>
-
                       <div className="quantity-control">
-                        <span>Ár: {item.price} Ft x </span>
+                        <span>Ár: {formatPrice(item.price)} Ft x </span>
                         <div className="quantity-selector">
                           <button
                             type="button"
@@ -132,9 +146,8 @@ const Cart = () => {
                             +
                           </button>
                         </div>
-                        <span> = {item.price * item.quantity} Ft</span>
+                        <span> = {formatPrice(parseInt(item.price) * parseInt(item.quantity))} Ft</span>
                       </div>
-
                       <button
                         className="remove-btn"
                         onClick={() => removeFromCart(item.id)}
@@ -149,8 +162,8 @@ const Cart = () => {
           )}
 
           {cartItems.length > 0 && (
-            <p className="cart-total">
-              Összesen: {orderTotal.toLocaleString()} Ft {/* Use orderTotal here */}
+            <p className="cart-total" key={orderTotal}>
+              Összesen: {formatPrice(orderTotal)} Ft
             </p>
           )}
 
@@ -170,7 +183,6 @@ const Cart = () => {
                     required
                   />
                 </div>
-
                 <div className="form-group">
                   <label htmlFor="email">E-mail</label>
                   <input
@@ -181,7 +193,6 @@ const Cart = () => {
                     required
                   />
                 </div>
-
                 <div className="form-group">
                   <label htmlFor="zip">Irányítószám</label>
                   <input
@@ -193,7 +204,6 @@ const Cart = () => {
                     required
                   />
                 </div>
-
                 <div className="form-group">
                   <label htmlFor="city">Város</label>
                   <input
@@ -204,7 +214,6 @@ const Cart = () => {
                     required
                   />
                 </div>
-
                 <div className="form-group">
                   <label htmlFor="street">Közterület neve</label>
                   <input
@@ -215,7 +224,6 @@ const Cart = () => {
                     required
                   />
                 </div>
-
                 <div className="form-group">
                   <label htmlFor="houseNumber">Házszám</label>
                   <input
@@ -226,7 +234,6 @@ const Cart = () => {
                     required
                   />
                 </div>
-
                 <button type="submit">Rendelés leadása</button>
               </form>
             </div>
