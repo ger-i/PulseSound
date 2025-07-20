@@ -110,13 +110,33 @@ const ProductDetail = () => {
                 {/* ===== MENNYISÉG ÉS KOSÁRBA HELYEZÉS ===== */}
                 <div className="quantity-container">
                     <label htmlFor="quantity">MENNYISÉG:</label>
-                    <input
-                        type="number"
-                        id="quantity"
-                        min="1"
-                        value={quantity}
-                        onChange={handleQuantityChange}
-                    />
+                    <div className="number-input-container">
+                        <button
+                            type="button"
+                            className="number-control minus"
+                            onClick={() => setQuantity(prev => Math.max(1, prev - 1))}
+                            disabled={quantity <= 1}
+                            aria-label="Csökkentés"
+                        >
+                            −
+                        </button>
+                        <input
+                            type="number"
+                            id="quantity"
+                            className="number-display"
+                            value={quantity}
+                            readOnly
+                            min="1"
+                        />
+                        <button
+                            type="button"
+                            className="number-control plus"
+                            onClick={() => setQuantity(prev => prev + 1)}
+                            aria-label="Növelés"
+                        >
+                            +
+                        </button>
+                    </div>
                     <button onClick={handleAddToCart}>KOSÁRBA TESZEM</button>
                 </div>
             </div>
