@@ -5,7 +5,7 @@ import './Cart.css';
 
 const Cart = () => {
   // Kosár kontextus és funkciók importálása
-  const { cartItems, removeFromCart, getCartTotal, clearCart, updateQuantity } = useContext(CartContext);
+  const { cartItems, removeFromCart, clearCart, updateQuantity } = useContext(CartContext);
   
   // Rendelési űrlap állapotváltozói
   const [name, setName] = useState('');
@@ -188,7 +188,7 @@ const Cart = () => {
           {/* Kosár végösszege */}
           {cartItems.length > 0 && (
             <p className="cart-total">
-              Összesen: {getCartTotal().toLocaleString()} Ft
+                Összesen: {cartItems.reduce((sum, item) => sum + item.price * item.quantity, 0).toLocaleString()} Ft
             </p>
           )}
           
