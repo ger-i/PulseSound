@@ -191,7 +191,7 @@
 /* Responsive Design */
 @media (max-width: 1200px) {
     .product-detail {
-        padding-top: 40px; /* Csökkentett padding nagyobb képernyőn */
+        padding-top: 30px; /* Csökkentett padding nagyobb képernyőn */
     }
     
     .product-text h1 {
