@@ -1,5 +1,7 @@
 .product-detail {
     margin: 0 auto;
+    /* Padding hozzáadása hogy ne takarja el a navbar */
+    padding-top: 80px; /* Navbar magasság + extra */
 }
 
 /* Product Description */
@@ -10,7 +12,7 @@
     text-align: center;
     position: absolute;
     left: 50%;
-    top: 17%;
+    top: calc(17% + 80px); /* Navbar magasság hozzáadása */
 }
 
 .product-text h1 {
@@ -163,7 +165,6 @@
     display: block;
 }
 
-
 .text-container {
     position: absolute;
     top: 70%;
@@ -192,123 +193,154 @@
 
 /* Responsive Design */
 @media (max-width: 1200px) {
-    .product-description {
-        top: 18%;
+    .product-detail {
+        padding-top: 70px; /* Csökkentett padding nagyobb képernyőn */
     }
-
+    
+    .product-description {
+        top: calc(18% + 70px); /* Módosított érték */
+    }
+    
     .product-text h1 {
         font-size: 1.4rem;
     }
-
+    
     .product-text p {
         font-size: 1.2rem;
         margin-left: 5px;
         margin-right: 10px;
     }
-
+    
     .product-images {
         flex-direction: column;
         margin: 20px;
     }
-
-        .quantity-container {
+    
+    .quantity-container {
         margin-top: 8px;
     }
-
+    
     .image-viewer {
         flex-direction: row;
         margin-left: 50px;
     }
-
+    
     .main-image {
         width: 350px;
         height: 350px;
     }
-
+    
     .thumbnail img {
         width: 70px;
         height: 70px;
     }
-
+    
     .text-container {
         max-width: 500px;
         padding: 15px;
         left: 35%;
     }
-
+    
     .text-container h3 {
         font-size: 30px;
     }
-
+    
     .text-container p {
         font-size: 17px;
     }
 }
 
 @media (max-width: 768px) {
-    .product-description {
-        position: static;
-        padding: 20px;
+    .product-detail {
+        padding-top: 60px; /* Még kisebb padding mobilon */
     }
-
+    
+    .product-description {
+        position: static; /* Visszatérés normál flow-ba */
+        padding: 20px;
+        margin-top: 20px; /* Extra margin a banner után */
+    }
+    
     .product-text p:last-child {
         font-size: 1.2rem;
     }
-
+    
     .quantity-container {
         margin: 20px;
     }
-
+    
     .quantity-container input[type="number"] {
         width: 60px;
         height: 35px;
         font-size: 16px;
     }
-
+    
     .quantity-container button {
         padding: 10px 20px;
         font-size: 16px;
     }
-
+    
     .product-images {
         width: 100%;
+        margin-top: 20px; /* Extra margin */
     }
-
+    
     .main-image {
         margin: 0 auto;
     }
-
+    
     .image-viewer {
         margin: 0 auto;
     }
-
+    
     .text-container {
         left: 50%;
         top: 50%;
     }
-
+    
     .text-container h3 {
         font-size: 16px;
     }
-
+    
     .text-container p {
         font-size: 13px;
     }
 }
 
+/* Speciális mobilos landscape nézet kezelése */
+@media (max-width: 768px)  {
+    .product-detail {
+        padding-top: 80px; 
+    }
+    
+    .product-description {
+        margin-top: 30px; 
+    }
+    
+    .product-images {
+        margin-top: 30px;
+    }
+}
+
+/* Extra kis képernyők kezelése */
 @media (max-width: 576px) {
+    .product-detail {
+        padding-top: 70px;
+    }
+    
     .product-images {
         width: 90%;
+        margin-top: 25px;
     }
-
+    
     .text-container {
         width: 80%;
     }
-
+    
     .text-container h3 {
         font-size: 11px;
     }
-
+    
     .text-container p {
         font-size: 10px;
     }
