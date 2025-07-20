@@ -4,15 +4,12 @@
     padding-top: 80px; /* Navbar magasság + extra */
 }
 
-/* Product Description */
 .product-description {
     display: flex;
     flex-direction: column;
-    margin-top: 10px;
     text-align: center;
     position: absolute;
     left: 50%;
-    top: calc(17% + 80px); /* Navbar magasság hozzáadása */
 }
 
 .product-text h1 {
