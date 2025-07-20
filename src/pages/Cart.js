@@ -84,11 +84,14 @@ const Cart = () => {
    * @param {number} newQuantity - Az új mennyiség
    */
   const handleQuantityChange = (id, newQuantity) => {
-    // Csak pozitív számokat fogadunk el
-    if (newQuantity >= 1 && !isNaN(newQuantity)) {
-      updateQuantity(id, newQuantity);
-    }
-  };
+  // Csak pozitív egész számokat fogadunk el
+  const quantity = Math.max(1, Math.floor(newQuantity));
+  if (!isNaN(quantity)) {
+    updateQuantity(id, quantity);
+    // Kényszerítsük az újrarenderelést a végösszeg frissítéséhez
+    setOrderTotal(getCartTotal());
+  }
+};
   
   /**
    * Irányítószám input kezelése
