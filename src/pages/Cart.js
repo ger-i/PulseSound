@@ -6,7 +6,7 @@ import './Cart.css';
 const Cart = () => {
   // Kosár kontextus és funkciók importálása
   const { cartItems, removeFromCart, clearCart, updateQuantity } = useContext(CartContext);
-  
+
   // Rendelési űrlap állapotváltozói
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
@@ -14,7 +14,7 @@ const Cart = () => {
   const [city, setCity] = useState('');
   const [street, setStreet] = useState('');
   const [houseNumber, setHouseNumber] = useState('');
-  
+
   // Rendelés állapotának követése
   const [orderSubmitted, setOrderSubmitted] = useState(false);
   const [error, setError] = useState('');
@@ -38,29 +38,29 @@ const Cart = () => {
   const handleOrderSubmit = (e) => {
     e.preventDefault();
     setError('');
-    
+
     // Kosár üres ellenőrzése
     if (cartItems.length === 0) {
       setError('A kosár üres. Kérjük, adjon hozzá termékeket a rendelés leadásához.');
       return;
     }
-    
+
     // Kötelező mezők ellenőrzése
     if (!name || !email || !zip || !city || !street || !houseNumber) {
       setError('Kérjük, töltse ki az összes mezőt.');
       return;
     }
-    
+
     // E-mail validáció
     if (!validateEmail(email)) {
       setError('Kérjük, adjon meg egy érvényes e-mail címet.');
       return;
     }
-    
+
     // Végösszeg kiszámítása és rendelési adatok összeállítása
     const total = cartItems.reduce((sum, item) => sum + item.price * item.quantity, 0);
     setOrderTotal(total);
-    
+
     const orderDetails = {
       name,
       email,
@@ -68,16 +68,16 @@ const Cart = () => {
       items: cartItems,
       total: total.toFixed(2),
     };
-    
+
     // Rendelés elküldése (jelenleg csak konzolba és alert)
     console.log('Order Submitted:', orderDetails);
     alert('Köszönjük a rendelést!');
-    
+
     // Kosár ürítése és sikeres rendelés állapot beállítása
     clearCart();
     setOrderSubmitted(true);
   };
-  
+
   /**
    * Termék mennyiségének módosítása
    * @param {number} id - A termék azonosítója
@@ -89,7 +89,7 @@ const Cart = () => {
       updateQuantity(id, newQuantity);
     }
   };
-  
+
   /**
    * Irányítószám input kezelése
    * Csak 4 számjegyű értékeket engedélyez
@@ -109,7 +109,7 @@ const Cart = () => {
       <div className="cart-banner">
         <img src={bannerImage} alt="Kosár banner" />
       </div>
-      
+
       {/* Sikeres rendelés megerősítése */}
       {orderSubmitted ? (
         <div className="order-confirmation">
@@ -126,7 +126,7 @@ const Cart = () => {
         <>
           {/* Kosár tartalmának megjelenítése */}
           <h2>A kosár tartalma:</h2>
-          
+
           {/* Üres kosár üzenet */}
           {cartItems.length === 0 ? (
             <p className="empty-cart-message">A kosarad üres.</p>
@@ -138,17 +138,17 @@ const Cart = () => {
                   <div className="cart-item">
                     {/* Termék képe */}
                     <img src={item.image} alt={item.name} />
-                    
+
                     <div className="item-details">
                       {/* Termék neve */}
                       <h3>{item.name}</h3>
-                      
+
                       {/* Mennyiség kezelő vezérlők */}
                       <div className="quantity-control">
                         <span>Ár: {item.price} Ft x </span>
                         <div className="quantity-selector">
                           {/* Mennyiség csökkentő gomb */}
-                          <button 
+                          <button
                             type="button"
                             className="quantity-btn minus"
                             onClick={() => handleQuantityChange(item.id, item.quantity - 1)}
@@ -159,7 +159,7 @@ const Cart = () => {
                           {/* Aktuális mennyiség megjelenítése */}
                           <span className="quantity-display">{item.quantity}</span>
                           {/* Mennyiség növelő gomb */}
-                          <button 
+                          <button
                             type="button"
                             className="quantity-btn plus"
                             onClick={() => handleQuantityChange(item.id, item.quantity + 1)}
@@ -170,9 +170,9 @@ const Cart = () => {
                         {/* Termék részösszege */}
                         <span> = {item.price * item.quantity} Ft</span>
                       </div>
-                      
+
                       {/* Termék eltávolítása a kosárból */}
-                      <button 
+                      <button
                         className="remove-btn"
                         onClick={() => removeFromCart(item.id)}
                       >
@@ -184,17 +184,17 @@ const Cart = () => {
               ))}
             </ul>
           )}
-          
+
           {/* Kosár végösszege */}
           {cartItems.length > 0 && (
             <p className="cart-total">
-                Összesen: {cartItems.reduce((sum, item) => sum + item.price * item.quantity, 0).toLocaleString()} Ft
+              Összesen: {cartItems.reduce((sum, item) => sum + item.price * item.quantity, 0).toLocaleString()} Ft
             </p>
           )}
-          
+
           {/* Hibaüzenetek megjelenítése */}
           {error && <p className="error-message">{error}</p>}
-          
+
           {/* Rendelési űrlap - csak akkor jelenik meg, ha van termék a kosárban */}
           {cartItems.length > 0 && (
             <div className="order-form">
@@ -211,7 +211,7 @@ const Cart = () => {
                     required
                   />
                 </div>
-                
+
                 {/* E-mail mező */}
                 <div className="form-group">
                   <label htmlFor="email">E-mail</label>
@@ -223,7 +223,7 @@ const Cart = () => {
                     required
                   />
                 </div>
-                
+
                 {/* Irányítószám mező - csak 4 számjegy */}
                 <div className="form-group">
                   <label htmlFor="zip">Irányítószám</label>
@@ -236,7 +236,7 @@ const Cart = () => {
                     required
                   />
                 </div>
-                
+
                 {/* Város mező */}
                 <div className="form-group">
                   <label htmlFor="city">Város</label>
@@ -248,7 +248,7 @@ const Cart = () => {
                     required
                   />
                 </div>
-                
+
                 {/* Utcanév mező */}
                 <div className="form-group">
                   <label htmlFor="street">Közterület neve</label>
@@ -260,7 +260,7 @@ const Cart = () => {
                     required
                   />
                 </div>
-                
+
                 {/* Házszám mező */}
                 <div className="form-group">
                   <label htmlFor="houseNumber">Házszám</label>
@@ -272,7 +272,7 @@ const Cart = () => {
                     required
                   />
                 </div>
-                
+
                 {/* Rendelés leadása gomb */}
                 <button type="submit">Rendelés leadása</button>
               </form>
