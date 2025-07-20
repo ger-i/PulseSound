@@ -14,6 +14,7 @@ const Cart = () => {
   const [orderSubmitted, setOrderSubmitted] = useState(false);
   const [error, setError] = useState('');
   const [orderTotal, setOrderTotal] = useState(0);
+  const [submittedOrderTotal, setSubmittedOrderTotal] = useState(0);
 
   // Segédfüggvény a számok formázásához - mobilbarát verzió
   const formatPrice = (price) => {
@@ -69,6 +70,10 @@ const Cart = () => {
     };
 
     console.log('Order Submitted:', orderDetails);
+    
+    // Elmentjük a végösszeget a clearCart előtt
+    setSubmittedOrderTotal(orderTotal);
+    
     alert('Köszönjük a rendelést!');
     clearCart();
     setOrderSubmitted(true);
@@ -110,7 +115,7 @@ const Cart = () => {
             <li><span>Név:</span> {name}</li>
             <li><span>E-mail:</span> {email}</li>
             <li><span>Szállítási cím:</span> {zip}, {city}, {street} {houseNumber}</li>
-            <li><span>Összeg:</span> {formatPrice(orderTotal)} Ft</li>
+            <li><span>Összeg:</span> {formatPrice(submittedOrderTotal)} Ft</li>
           </ul>
         </div>
       ) : (
