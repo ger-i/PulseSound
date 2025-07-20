@@ -245,7 +245,7 @@
 
 @media (max-width: 768px) {
     .product-detail {
-        padding-top: 40px; /* Még kisebb padding mobilon */
+        padding-top: 10px; /* Még kisebb padding mobilon */
     }
     
     .product-description {
