@@ -38,6 +38,31 @@
     color: #333;
 }
 
+.number-display {
+  -moz-appearance: textfield;
+}
+
+.number-control.minus {
+  border-radius: 10px;
+}
+
+.number-control.plus {
+  border-radius: 10px;
+}
+
+.number-control:hover:not(:disabled) {
+  background: #b26504;
+}
+
+.number-control:active:not(:disabled) {
+  background: #8f4f02;
+}
+
+.number-control:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
 .quantity-container input[type="number"] {
     width: 80px;
     height: 40px;
