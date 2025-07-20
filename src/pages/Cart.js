@@ -1,77 +1,43 @@
-/**
- * Cart komponens
- * 
- * Ez a komponens a kosár tartalmat és a rendelési folyamatot kezeli.
- * 
- * Funkcionalitás:
- * - Kosár tartalmának megjelenítése
- * - Termékek mennyiségének módosítása
- * - Termékek eltávolítása a kosárból
- * - Rendelési űrlap kezelése
- * - Rendelés validálása és leadása
- * - Rendelés visszaigazolása
- */
 import React, { useContext, useState } from 'react';
 import CartContext from '../components/CartContext';
 import bannerImage from '../images/cart2b.jpg';
 import './Cart.css';
 
 const Cart = () => {
-  // ===== CONTEXT ÉS KOSÁR MŰVELETEK =====
-  
-  /**
-   * CartContext-ből importált függvények és adatok
-   * - cartItems: kosár tartalma
-   * - removeFromCart: termék eltávolítása
-   * - getCartTotal: kosár összegének kiszámítása
-   * - clearCart: kosár teljes ürítése
-   * - updateQuantity: termék mennyiségének frissítése
-   */
+  // Kosár kontextus és funkciók importálása
   const { cartItems, removeFromCart, getCartTotal, clearCart, updateQuantity } = useContext(CartContext);
   
-  // ===== ŰRLAP STATE VÁLTOZÓK =====
+  // Rendelési űrlap állapotváltozói
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [zip, setZip] = useState('');
+  const [city, setCity] = useState('');
+  const [street, setStreet] = useState('');
+  const [houseNumber, setHouseNumber] = useState('');
   
+  // Rendelés állapotának követése
+  const [orderSubmitted, setOrderSubmitted] = useState(false);
+  const [error, setError] = useState('');
+  const [orderTotal, setOrderTotal] = useState(0);
+
   /**
-   * Rendelési űrlap mezőinek state-jei
-   * Minden mező külön state-tel rendelkezik a kontrollált bemenet érdekében
-   */
-  const [name, setName] = useState('');           // Vásárló neve
-  const [email, setEmail] = useState('');         // E-mail cím
-  const [zip, setZip] = useState('');             // Irányítószám (csak számok, max 4 karakter)
-  const [city, setCity] = useState('');           // Város név
-  const [street, setStreet] = useState('');       // Utca név
-  const [houseNumber, setHouseNumber] = useState(''); // Házszám
-  
-  // ===== ÁLLAPOT KEZELŐ STATE VÁLTOZÓK =====
-  
-  const [orderSubmitted, setOrderSubmitted] = useState(false); // Rendelés leadva-e
-  const [error, setError] = useState('');                      // Hibaüzenetek tárolása
-  const [orderTotal, setOrderTotal] = useState(0);             // Rendelés összege (mentés a kosár törlése előtt)
-  
-  // ===== VALIDÁCIÓS FÜGGVÉNYEK =====
-  
-  /**
-   * E-mail cím validálása regex segítségével
-   * @param {string} email - Validálandó e-mail cím
-   * @returns {boolean} - Érvényes-e az e-mail cím
+   * E-mail cím validációs függvény
+   * @param {string} email - A validálandó e-mail cím
+   * @returns {boolean} - True, ha érvényes az e-mail formátum
    */
   const validateEmail = (email) => {
     const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     return regex.test(email);
   };
-  
-  // ===== EVENT HANDLER FÜGGVÉNYEK =====
-  
+
   /**
-   * Rendelés leadásának kezelője
-   * - Validálja az összes mezőt
-   * - Ellenőrzi a kosár tartalmát
-   * - Sikeres rendelés esetén törli a kosarat és megjeleníti a visszaigazolást
-   * @param {Event} e - Form submit event
+   * Rendelés leadásának kezelése
+   * Validálja a form adatokat és elküldi a rendelést
+   * @param {Event} e - Form submit esemény
    */
   const handleOrderSubmit = (e) => {
     e.preventDefault();
-    setError(''); // Korábbi hibák törlése
+    setError('');
     
     // Kosár üres ellenőrzése
     if (cartItems.length === 0) {
@@ -79,23 +45,22 @@ const Cart = () => {
       return;
     }
     
-    // Kötelező mezők kitöltésének ellenőrzése
+    // Kötelező mezők ellenőrzése
     if (!name || !email || !zip || !city || !street || !houseNumber) {
       setError('Kérjük, töltse ki az összes mezőt.');
       return;
     }
     
-    // E-mail cím validálása
+    // E-mail validáció
     if (!validateEmail(email)) {
       setError('Kérjük, adjon meg egy érvényes e-mail címet.');
       return;
     }
     
-    // Rendelés összegének mentése a kosár törlése előtt
+    // Végösszeg kiszámítása és rendelési adatok összeállítása
     const total = getCartTotal();
     setOrderTotal(total);
     
-    // Rendelési adatok összeállítása
     const orderDetails = {
       name,
       email,
@@ -104,19 +69,19 @@ const Cart = () => {
       total: total.toFixed(2),
     };
     
-    // Konzolra kiírás (fejlesztési célokra)
+    // Rendelés elküldése (jelenleg csak konzolba és alert)
     console.log('Order Submitted:', orderDetails);
-    
-    // Felhasználó értesítése
     alert('Köszönjük a rendelést!');
     
-    // Kosár ürítése és rendelés állapotának beállítása
+    // Kosár ürítése és sikeres rendelés állapot beállítása
     clearCart();
     setOrderSubmitted(true);
   };
   
   /**
-   * Termék mennyiségének változtatása
+   * Termék mennyiségének módosítása
+   * @param {number} id - A termék azonosítója
+   * @param {number} newQuantity - Az új mennyiség
    */
   const handleQuantityChange = (id, newQuantity) => {
     // Csak pozitív számokat fogadunk el
@@ -126,28 +91,26 @@ const Cart = () => {
   };
   
   /**
-   * Irányítószám bevitelének speciális kezelője
-   * - Csak számokat enged meg
-   * - Maximum 4 karaktert fogad el
+   * Irányítószám input kezelése
+   * Csak 4 számjegyű értékeket engedélyez
+   * @param {Event} e - Input change esemény
    */
   const handleZipChange = (e) => {
     const value = e.target.value;
-    // Regex: csak számjegyek, 0-4 karakter hosszúságig
+    // Regex: csak 0-4 számjegy hosszúságú számok
     if (/^\d{0,4}$/.test(value)) {
       setZip(value);
     }
   };
-  
-  // ===== KOMPONENS RENDER =====
+
   return (
     <div className="cart">
-      
-      {/* ===== BANNER KÉP ===== */}
+      {/* Kosár banner kép */}
       <div className="cart-banner">
         <img src={bannerImage} alt="Kosár banner" />
       </div>
       
-      {/* ===== RENDELÉS VISSZAIGAZOLÁSA ===== */}
+      {/* Sikeres rendelés megerősítése */}
       {orderSubmitted ? (
         <div className="order-confirmation">
           <h2>Köszönjük a rendelést!</h2>
@@ -161,14 +124,14 @@ const Cart = () => {
         </div>
       ) : (
         <>
+          {/* Kosár tartalmának megjelenítése */}
           <h2>A kosár tartalma:</h2>
           
-          {/* ===== KOSÁR TARTALOM ===== */}
+          {/* Üres kosár üzenet */}
           {cartItems.length === 0 ? (
-            // Üres kosár esetén
             <p className="empty-cart-message">A kosarad üres.</p>
           ) : (
-            // Kosár elemek megjelenítése
+            /* Kosárban lévő termékek listája */
             <ul>
               {cartItems.map((item) => (
                 <li key={item.id}>
@@ -180,20 +143,39 @@ const Cart = () => {
                       {/* Termék neve */}
                       <h3>{item.name}</h3>
                       
-                      {/* Ár és mennyiség bemenet */}
-                      <p>Ár: {item.price} Ft x </p>
-                      <input
-                        type="number"
-                        value={item.quantity}
-                        min="1"
-                        onChange={(e) => handleQuantityChange(item.id, parseInt(e.target.value))}
-                      />
+                      {/* Mennyiség kezelő vezérlők */}
+                      <div className="quantity-control">
+                        <span>Ár: {item.price} Ft x </span>
+                        <div className="quantity-selector">
+                          {/* Mennyiség csökkentő gomb */}
+                          <button 
+                            type="button"
+                            className="quantity-btn minus"
+                            onClick={() => handleQuantityChange(item.id, item.quantity - 1)}
+                            disabled={item.quantity <= 1}
+                          >
+                            -
+                          </button>
+                          {/* Aktuális mennyiség megjelenítése */}
+                          <span className="quantity-display">{item.quantity}</span>
+                          {/* Mennyiség növelő gomb */}
+                          <button 
+                            type="button"
+                            className="quantity-btn plus"
+                            onClick={() => handleQuantityChange(item.id, item.quantity + 1)}
+                          >
+                            +
+                          </button>
+                        </div>
+                        {/* Termék részösszege */}
+                        <span> = {item.price * item.quantity} Ft</span>
+                      </div>
                       
-                      {/* Részösszeg */}
-                      <p> = {item.price * item.quantity} Ft</p>
-                      
-                      {/* Törlés gomb */}
-                      <button onClick={() => removeFromCart(item.id)}>
+                      {/* Termék eltávolítása a kosárból */}
+                      <button 
+                        className="remove-btn"
+                        onClick={() => removeFromCart(item.id)}
+                      >
                         Töröl
                       </button>
                     </div>
@@ -203,22 +185,21 @@ const Cart = () => {
             </ul>
           )}
           
-          {/* ===== KOSÁR ÖSSZEG ===== */}
+          {/* Kosár végösszege */}
           {cartItems.length > 0 && (
             <p className="cart-total">
               Összesen: {getCartTotal().toLocaleString()} Ft
             </p>
           )}
           
-          {/* ===== HIBAÜZENETEK ===== */}
+          {/* Hibaüzenetek megjelenítése */}
           {error && <p className="error-message">{error}</p>}
           
-          {/* ===== RENDELÉSI ŰRLAP ===== */}
+          {/* Rendelési űrlap - csak akkor jelenik meg, ha van termék a kosárban */}
           {cartItems.length > 0 && (
             <div className="order-form">
               <h2>Rendelési adatok</h2>
               <form onSubmit={handleOrderSubmit}>
-                
                 {/* Név mező */}
                 <div className="form-group">
                   <label htmlFor="name">Név</label>
@@ -243,15 +224,15 @@ const Cart = () => {
                   />
                 </div>
                 
-                {/* Irányítószám mező (speciális validációval) */}
+                {/* Irányítószám mező - csak 4 számjegy */}
                 <div className="form-group">
                   <label htmlFor="zip">Irányítószám</label>
                   <input
                     type="text"
                     id="zip"
                     value={zip}
-                    onChange={handleZipChange} // Csak számokat fogad el
-                    maxLength={4} // Maximum 4 karakter
+                    onChange={handleZipChange}
+                    maxLength={4}
                     required
                   />
                 </div>
@@ -268,7 +249,7 @@ const Cart = () => {
                   />
                 </div>
                 
-                {/* Utca mező */}
+                {/* Utcanév mező */}
                 <div className="form-group">
                   <label htmlFor="street">Közterület neve</label>
                   <input
