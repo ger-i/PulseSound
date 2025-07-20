@@ -1,9 +1,9 @@
 .product-detail {
     margin: 0 auto;
-    /* Padding hozzáadása hogy ne takarja el a navbar */
-    padding-top: 80px; /* Navbar magasság + extra */
+    padding-top: 50px; 
 }
 
+/* Product Description */
 .product-description {
     display: flex;
     flex-direction: column;
@@ -191,11 +191,7 @@
 /* Responsive Design */
 @media (max-width: 1200px) {
     .product-detail {
-        padding-top: 70px; /* Csökkentett padding nagyobb képernyőn */
-    }
-    
-    .product-description {
-        top: calc(18% + 70px); /* Módosított érték */
+        padding-top: 40px; /* Csökkentett padding nagyobb képernyőn */
     }
     
     .product-text h1 {
