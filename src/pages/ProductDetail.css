@@ -1,6 +1,7 @@
 .product-detail {
     margin: 0 auto;
-    padding-top: 50px; 
+    overflow-x: hidden;
+    width: 100%;
 }
 
 /* Product Description */
