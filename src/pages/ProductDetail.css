@@ -39,7 +39,8 @@
 }
 
 .number-display {
-  -moz-appearance: textfield;
+  -moz-appearance: textfield; /* Mozilla Firefox specifikus */
+  appearance: textfield;      /* Standard tulajdonság a kompatibilitáshoz */
 }
 
 .number-control.minus {
