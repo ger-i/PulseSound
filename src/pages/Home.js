@@ -1,3 +1,15 @@
+import React from 'react';
+import { useNavigate } from 'react-router-dom';      // React Router navigációhoz
+import './Home.css'; 
+import pod_1 from '../images/earbuds/pod2d.jpg';     
+import pods from '../images/pods.jpg';               
+import head_1 from '../images/headphones/hph7e.jpg'; 
+import heads from '../images/heads.jpg';             
+import pss from '../images/pss.jpg';                 
+import ps_1 from '../images/speakers/spe5e.jpg';     
+import mic_1 from '../images/microphones/mic2c.jpg'; 
+import mics from '../images/mics.jpg';               
+
 /**
  * Home komponens - Főoldal komponens
  * 
@@ -9,21 +21,6 @@
  * - Vizuálisan vonzó landing page élmény
  */
 
-import React from 'react';
-import { useNavigate } from 'react-router-dom';      // React Router navigációhoz
-import './Home.css'; 
-import pod_1 from '../images/earbuds/pod2d.jpg';     // Kiemelt fülhallgató termék
-import pods from '../images/pods.jpg';               // Fülhallgatók kategória banner
-import head_1 from '../images/headphones/hph7e.jpg'; // Kiemelt fejhallgató termék
-import heads from '../images/heads.jpg';             // Fejhallgatók kategória banner
-import pss from '../images/pss.jpg';                 // Hangszórók kategória banner
-import ps_1 from '../images/speakers/spe5e.jpg';     // Kiemelt hangszóró termék
-import mic_1 from '../images/microphones/mic2c.jpg'; // Kiemelt mikrofon termék
-import mics from '../images/mics.jpg';               // Mikrofonok kategória banner
-
-/**
- * Home komponens - Főoldal renderelése
- */
 const Home = () => {
   const navigate = useNavigate(); // Programozott navigáció hook
 
