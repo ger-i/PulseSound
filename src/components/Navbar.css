@@ -161,7 +161,6 @@
 }
 
 /* Media Queries */
-
 @media (max-width: 1200px) {
   .nav-links li {
     margin: 0rem 1rem;
