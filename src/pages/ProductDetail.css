@@ -4,7 +4,6 @@
     width: 100%;
 }
 
-/* Product Description */
 .product-description {
     display: flex;
     flex-direction: column;
@@ -28,7 +27,6 @@
     font-weight: bold;
 }
 
-/* Quantity Container */
 .quantity-container {
     margin: 30px;
 }
@@ -105,7 +103,6 @@
     background-color: #8f4f02;
 }
 
-/* Product Images */
 .product-images {
     display: flex;
     align-items: flex-start;
@@ -193,7 +190,7 @@
 /* Responsive Design */
 @media (max-width: 1200px) {
     .product-detail {
-        padding-top: 30px; /* Csökkentett padding nagyobb képernyőn */
+        padding-top: 30px; 
     }
     
     .product-text h1 {
@@ -247,13 +244,13 @@
 
 @media (max-width: 768px) {
     .product-detail {
-        padding-top: 10px; /* Még kisebb padding mobilon */
+        padding-top: 10px; 
     }
     
     .product-description {
-        position: static; /* Visszatérés normál flow-ba */
+        position: static; 
         padding: 20px;
-        margin-top: 20px; /* Extra margin a banner után */
+        margin-top: 20px; 
     }
     
     .product-text p:last-child {
@@ -277,7 +274,7 @@
     
     .product-images {
         width: 100%;
-        margin-top: 20px; /* Extra margin */
+        margin-top: 20px;
     }
     
     .main-image {
