@@ -1,4 +1,3 @@
-/* Alapbeállítások */
 body,
 html {
   margin: 0;
@@ -6,13 +5,11 @@ html {
   font-family: Arial, sans-serif;
 }
 
-/* Videó konténer */
 .video-container {
   position: relative;
   margin-bottom: 5px;
 }
 
-/* Videó szöveg */
 .video-text {
   position: absolute;
   top: 20%;
@@ -22,7 +19,6 @@ html {
   text-align: center;
   text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.6);
   z-index: 1;
-  /* A szöveg a videó fölött jelenik meg */
 }
 
 .video-text h1 {
@@ -50,16 +46,13 @@ html {
 }
 
 .container-wide {
-  flex: 6;
-  /* Széles konténer aránya */
+  flex: 6;  /* Széles konténer aránya */
 }
 
 .container-narrow {
-  flex: 4;
-  /* Keskeny konténer aránya */
+  flex: 4;  /* Keskeny konténer aránya */
 }
 
-/* Képek stílusai */
 .container-wide img,
 .container-narrow img {
   object-fit: cover;
@@ -68,7 +61,6 @@ html {
   border-radius: 8px;
 }
 
-/* Szöveges réteg */
 .text-overlay {
   position: absolute;
   top: 50%;
@@ -92,7 +84,6 @@ html {
   margin-top: 0.5em;
 }
 
-/* Gomb stílusai */
 .text-overlay button {
   font-size: 0.9rem;
   padding: 6px 12px;
