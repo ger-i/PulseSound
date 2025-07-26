@@ -5,7 +5,7 @@
 
 .footer-content {
   display: flex;
-  align-items: center; /* Center the content vertically */
+  align-items: center; 
 }
 
 .footer-logo {
@@ -15,7 +15,7 @@
 
 .footer-links-container {
   display: flex;
-  justify-content: center; /* Center the links */
+  justify-content: center; 
   flex-grow: 1;
   margin-right: 6rem;
 }
@@ -35,22 +35,22 @@
 footer p {
   margin: 0;
   font-size: 14px;
-  color: #bdc3c7; /* Lighter text color for better contrast */
+  color: #bdc3c7; 
 }
 
 /* Telefonok (576px) */
 @media (max-width: 576px) {
   .footer-content {
-    flex-direction: column; /* Stack content vertically */
+    flex-direction: column; 
   }
   
   .footer-links-container {
-    margin-right: 0; /* Remove right margin */
+    margin-right: 0; 
   }
   
   .footer-links {
-    flex-direction: column; /* Stack links vertically */
-    align-items: center; /* Center links */
+    flex-direction: column; 
+    align-items: center; 
     gap: 14px;
   }
 
