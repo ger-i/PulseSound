@@ -167,4 +167,6 @@ Ez a projekt MIT licenc alatt áll. További részletekért lásd a `LICENSE` f�
 
 ---
 
+Link: https://pulsesound.netlify.app/
+
 ⭐ Ha tetszik a projekt, adj neki egy csillagot a GitHubon!
