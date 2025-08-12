@@ -1,4 +1,4 @@
-import './App.css';
+//import './App.css';
 import React from "react";
 // React Router komponensek importálása a navigációhoz
 import { BrowserRouter, Routes, Route } from "react-router-dom";
