@@ -1,5 +1,6 @@
 import './App.css';
 import React from "react";
+// React Router komponensek importálása a navigációhoz
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import NavFoot from './components/NavFoot';
 import Home from "./pages/Home";
@@ -26,21 +27,3 @@ function App() {
 }
 
 export default App;
-
-
-
-/*
-let a = 1;
-
-while (a < 100) {
-    console.log(a); // Kiírja az aktuális értéket
-    a += 3; // 3-mal növeli az a értékét
-}
-*/
-
-
-/*
-for (let a = 1; a < 110; a += 3) {
-    console.log(a); 
-}
-*/

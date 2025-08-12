@@ -1,24 +1,19 @@
 .product-detail {
     margin: 0 auto;
+    overflow-x: hidden;
+    width: 100%;
 }
 
 /* Product Description */
 .product-description {
     display: flex;
     flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    margin-top: 10px;
-    gap: 10px;
     text-align: center;
     position: absolute;
     left: 50%;
-    top: 17%;
-    max-width: 800px;
 }
 
 .product-text h1 {
-    font-size: 2rem;
     color: #333;
 }
 
@@ -27,13 +22,10 @@
     color: #555;
     max-width: 700px;
     margin-left: 40px;
-    /*transform: translateX(20%);*/
 }
 
 .product-text p:last-child {
     font-weight: bold;
-    font-size: 1.5rem;
-    margin-top: 20px;
 }
 
 /* Quantity Container */
@@ -43,8 +35,33 @@
 
 .quantity-container label {
     font-size: 18px;
-    font-weight: 500;
     color: #333;
+}
+
+.number-display {
+  -moz-appearance: textfield; /* Mozilla Firefox specifikus */
+  appearance: textfield;      /* Standard tulajdonság a kompatibilitáshoz */
+}
+
+.number-control.minus {
+  border-radius: 10px;
+}
+
+.number-control.plus {
+  border-radius: 10px;
+}
+
+.number-control:hover:not(:disabled) {
+  background: #b26504;
+}
+
+.number-control:active:not(:disabled) {
+  background: #8f4f02;
+}
+
+.number-control:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
 }
 
 .quantity-container input[type="number"] {
@@ -54,17 +71,14 @@
     text-align: center;
     border: 1px solid #ccc;
     border-radius: 8px;
-    outline: none;
     transition: border-color 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
-    margin: 5px;
+    margin: 6px;
     background-color: #f9f9f9;
     padding: 0 10px;
     box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
 }
 
 .quantity-container input[type="number"]:focus {
-    border-color: #007bff;
-    box-shadow: 0 0 8px rgba(0, 123, 255, 0.6);
     transform: scale(1.05);
 }
 
@@ -79,10 +93,8 @@
     border: none;
     padding: 12px 24px;
     font-size: 18px;
-    font-weight: 500;
     cursor: pointer;
     border-radius: 8px;
-    transition: background-color 0.3s ease;
 }
 
 .quantity-container button:hover {
@@ -98,7 +110,6 @@
     display: flex;
     align-items: flex-start;
     gap: 20px;
-    width: 100rem;
     margin: 60px;
     margin-left: 5rem;
 }
@@ -108,11 +119,6 @@
     height: 460px;
     border: 1px solid #ccc;
     border-radius: 10px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    overflow: hidden;
-    padding: 10px 2px;
 }
 
 .main-image img {
@@ -133,7 +139,7 @@
     object-fit: contain;
     border: 2px solid #ccc;
     border-radius: 10px;
-    transition: border-color 0.1s ease;
+    transition: 0.3s ease;
 }
 
 .thumbnail img:hover {
@@ -145,23 +151,16 @@
 }
 
 .image-details {
-    display: flex;
-    flex-direction: column;
-    gap: 0;
     margin-top: 30px;
 }
 
 .image-description {
     position: relative;
-    width: 100%;
-    max-width: 1920px;
-    margin: 0 auto;
 }
 
 .image-description img {
     width: 100%;
     height: auto;
-    object-fit: contain;
     display: block;
 }
 
@@ -175,147 +174,130 @@
     padding: 20px;
     border-radius: 8px;
     text-align: center;
-    z-index: 2;
     max-width: 600px;
 }
 
 .text-container h3 {
     margin: 0 0 10px 0;
-    font-size: 40px;
+    font-size: 2.5rem;
     color: #ca7505;
     text-transform: uppercase;
 }
 
 .text-container p {
-    font-size: 20px;
+    font-size: 1.5rem;
     color: #ffffff;
     margin: 0;
 }
 
 /* Responsive Design */
-
-/* Breakpoint for 1200px */
 @media (max-width: 1200px) {
-    .product-description {
-        top: 15%;
+    .product-detail {
+        padding-top: 30px; /* Csökkentett padding nagyobb képernyőn */
     }
-
-    .product-text p {
+    
+    .product-text h1 {
         font-size: 1.4rem;
+    }
+    
+    .product-text p {
+        font-size: 1.2rem;
         margin-left: 5px;
         margin-right: 10px;
     }
-
-
+    
     .product-images {
         flex-direction: column;
         margin: 20px;
-        width: 100%;
     }
-
+    
+    .quantity-container {
+        margin-top: 8px;
+    }
+    
+    .image-viewer {
+        flex-direction: row;
+        margin-left: 50px;
+    }
+    
     .main-image {
         width: 350px;
         height: 350px;
     }
-
+    
     .thumbnail img {
         width: 70px;
         height: 70px;
     }
-
+    
     .text-container {
         max-width: 500px;
         padding: 15px;
         left: 35%;
     }
-
+    
     .text-container h3 {
         font-size: 30px;
     }
-
+    
     .text-container p {
         font-size: 17px;
     }
-
-    .image-viewer {
-        flex-direction: row;
-        justify-content: center;
-        flex-wrap: wrap;
-        margin-left: 50px;
-    }
 }
 
-/* Breakpoint for 768px */
 @media (max-width: 768px) {
+    .product-detail {
+        padding-top: 10px; /* Még kisebb padding mobilon */
+    }
+    
     .product-description {
-        position: static;
-        max-width: 100%;
+        position: static; /* Visszatérés normál flow-ba */
         padding: 20px;
-        transform: none;
-        left: 0;
+        margin-top: 20px; /* Extra margin a banner után */
     }
-
-    .product-text h1 {
-        font-size: 1.5rem;
-    }
-
-    .product-text p {
-        font-size: 1.2rem;
-    }
-
+    
     .product-text p:last-child {
         font-size: 1.2rem;
-        margin-top: 15px;
     }
-
+    
     .quantity-container {
         margin: 20px;
     }
-
+    
     .quantity-container input[type="number"] {
         width: 60px;
         height: 35px;
         font-size: 16px;
     }
-
+    
     .quantity-container button {
         padding: 10px 20px;
         font-size: 16px;
     }
-
+    
     .product-images {
-        flex-direction: column;
-        margin: 20px;
         width: 100%;
+        margin-top: 20px; /* Extra margin */
     }
-
+    
     .main-image {
         margin: 0 auto;
     }
-
+    
     .image-viewer {
-        flex-direction: row;
-        justify-content: center;
-        flex-wrap: wrap;
         margin: 0 auto;
     }
-
-    .thumbnail img {
-        width: 60px;
-        height: 60px;
-    }
-
+    
     .text-container {
-        max-width: 100%;
         left: 50%;
         top: 50%;
     }
-
+    
     .text-container h3 {
-        font-size: 15px;
+        font-size: 16px;
     }
-
+    
     .text-container p {
-        font-size: 12px;
+        font-size: 13px;
     }
 }

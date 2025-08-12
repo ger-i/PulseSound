@@ -1,17 +1,39 @@
-const importAll = (r) => {
+const importAll = (r) => {  // Függvény, amely importálja az összes képet a megadott kontextusból
     const images = {};
     r.keys().forEach((key) => {
-        const fileName = key.replace('./', ''); // Eltávolítja az './'-t az útvonalból
-        images[fileName] = r(key);
+        const fileName = key.replace('./', '').replace(/\.\w+$/, ''); // Kiterjesztés nélkül is használható
+        const fullFileName = key.replace('./', ''); // Teljes fájlnévvel is elérhető
+        images[fullFileName] = r(key);  // Teljes fájlnévvel is elérhető
+        images[fileName] = r(key); // Mindkét változat elérhető
     });
     return images;
 };
 
+// Képek importálása kategóriánként
+// Earbuds kategória képei
 const earbudsImages = importAll(require.context('../images/earbuds', false, /\.(png|jpe?g|svg)$/));
+
+// Fejhallgatók kategória képei
 const headphonesImages = importAll(require.context('../images/headphones', false, /\.(png|jpe?g|svg)$/));
+
+// Hangszórók kategória képei
 const speakersImages = importAll(require.context('../images/speakers', false, /\.(png|jpe?g|svg)$/));
+
+// Mikrofonok kategória képei
 const microphonesImages = importAll(require.context('../images/microphones', false, /\.(png|jpe?g|svg)$/));
 
+/**
+ * Fő termék adatok tömb
+ * Minden termék objektum tartalmazza a következő mezőket:
+ * - id: egyedi azonosító
+ * - name: termék neve
+ * - price: ár forintban
+ * - image: fő termék kép
+ * - images: termék képek tömbje (galéria)
+ * - dimages: részletes képek tömbje
+ * - descriptions: termék leírások tömbje (cím és szöveg párokban)
+ * - category: termék kategória
+ */
 
 const ProductsData = [
     // Earbuds kategória
@@ -20,14 +42,14 @@ const ProductsData = [
         name: "Amazon Echo Buds",
         price: 9500,
         image: earbudsImages['pod1.jpg'], // A fájl neve alapján keres
-        images: [earbudsImages['pod1.jpg'], earbudsImages['pod1a.jpg'], earbudsImages['pod1b.jpg']],
-        dimages: [earbudsImages['pod1c.jpg'], earbudsImages['pod1d.jpg'], earbudsImages['pod1e.jpg']],
+        images: [earbudsImages['pod1.jpg'], earbudsImages['pod1a.jpg'], earbudsImages['pod1b.jpg']], 
+        dimages: [earbudsImages['pod1c.jpg'], earbudsImages['pod1d.jpg'], earbudsImages['pod1e.jpg']],  
+        // Termék leírások tömb - minden elem tartalmaz egy címet és leírást
         descriptions: [
             { title: "Igazi vezeték nélküli fülhallgató", text: "Igazi vezeték nélküli fülhallgató gazdag, kiegyensúlyozott hangzással. Hallja hangosan és tisztán a 12 mm-es meghajtókkal, amelyek éles hangzást, kiegyensúlyozott basszust és teljes hangzást biztosítanak. Legyen hallható a 2 mikrofonnal és a hangérzékelő gyorsulásmérővel a kristálytiszta kommunikáció érdekében." },
             { title: "Félfüles kialakítás audio személyre szabással", text: "Az új Echo Buds félig fülbe helyezhető fülhallgatók, amelyeket úgy terveztek, hogy fülpárna használata nélkül a fülbe illeszkedjenek. Ez a kialakítás segít csökkenteni, de nem szünteti meg a külső zajokat, hogy ön kapcsolatban maradhasson a környezetével." },
             { title: "Zökkenőmentes kapcsolás", text: "Hallgasd meg az összes zenét, podcastot, hangoskönyvet, telefonhívást vagy bármit, amit csak szeretnél hallgatni, kötöttségek nélkül." },
         ],
-        
         category: "Earbuds",
     },
     {
