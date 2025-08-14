@@ -1,48 +1,37 @@
-/**
- * Footer komponens - Az oldal alján található lábléc
- * 
- * Funkciók:
- * - PulseSound logo megjelenítése
- * - Navigációs linkek (Kapcsolat, Garancia, Szállítás, ÁSZF, Rólunk)
- * - Jogi nyilatkozat/szerzői jogi információk
- * - Reszponzív design támogatás
- */
-
 import FooterImg from "../images/logo_1.png";
-import "./Footer.css"
 
-/**
- * Footer komponens - Oldal lábléc renderelése
- */
 const Footer = () => {
   return (
-    <footer className="footer-pulsesound">
-      {/* Fő footer tartalom wrapper */}
-      <div className="footer-content">
-        
-        {/* Logo szekció */}
-        <div className="footer-logo-container">
-          <img 
-            className="footer-logo" 
-            src={FooterImg} 
-            alt="PulseSound logo" // Akadálymentességi alt szöveg
+    <footer className="bg-[#2c3e50] text-white p-1">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between sm:px-8">
+
+        {/* Bal oldal: logó */}
+        <div className="w-full sm:w-1/3 flex justify-center sm:justify-start mb-4 sm:mb-0">
+          <img
+            src={FooterImg}
+            alt="PulseSound logo"
+            className="max-w-[150px] h-auto"
           />
         </div>
-        
-        {/* Navigációs linkek szekciója */}
-        <div className="footer-links-container">
-          <ul className="footer-links">
-            <li>Kapcsolat</li>     
-            <li>Garancia</li>    
-            <li>Szállítás</li>     
-            <li>ÁSZF</li>           
-            <li>Rólunk</li>       
+
+        {/* Közép: navigációs linkek */}
+        <div className="sm:w-1/3 flex justify-center sm:items-center sm:h-full">
+          <ul className="flex flex-col sm:flex-row items-center gap-4 sm:gap-6 list-none p-0 m-0">
+            <li className="text-sm sm:text-base hover:text-gray-300 cursor-pointer">Kapcsolat</li>
+            <li className="text-sm sm:text-base hover:text-gray-300 cursor-pointer">Garancia</li>
+            <li className="text-sm sm:text-base hover:text-gray-300 cursor-pointer">Szállítás</li>
+            <li className="text-sm sm:text-base hover:text-gray-300 cursor-pointer">ÁSZF</li>
+            <li className="text-sm sm:text-base hover:text-gray-300 cursor-pointer">Rólunk</li>
           </ul>
         </div>
+
+        {/* Jobb oldal: üres vagy jövőbeli tartalom */}
+        <div className="sm:w-1/3"></div>
       </div>
-      
-      <div className="footer-credits">
-        <p>&copy; PULSESOUND by Geri.</p> 
+
+      {/* Alsó jogi szöveg */}
+      <div className="text-center mt-6">
+        <p className="text-xs sm:text-sm text-[#bdc3c7] m-0">&copy; PULSESOUND by Geri.</p>
       </div>
     </footer>
   );
