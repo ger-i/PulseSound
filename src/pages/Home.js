@@ -1,44 +1,32 @@
 import React from 'react';
-import { useNavigate } from 'react-router-dom';      // React Router navigációhoz
-import './Home.css'; 
-import pod_1 from '../images/earbuds/pod2d.jpg';     
-import pods from '../images/pods.jpg';               
-import head_1 from '../images/headphones/hph7e.jpg'; 
-import heads from '../images/heads.jpg';             
-import pss from '../images/pss.jpg';                 
-import ps_1 from '../images/speakers/spe5e.jpg';     
-import mic_1 from '../images/microphones/mic2c.jpg'; 
-import mics from '../images/mics.jpg';               
-
-/**
- * Home komponens - Főoldal komponens
- * 
- * Funkciók:
- * - Üdvözlő videó szekció háttér videóval
- * - Termék kategóriák és kiemelt termékek bemutatása
- * - Reszponzív kártya layout (széles és keskeny kártyák)
- * - Navigáció termék és kategória oldalakra
- * - Vizuálisan vonzó landing page élmény
- */
+import { useNavigate } from 'react-router-dom';
+import pod_1 from '../images/earbuds/pod2d.jpg';
+import pods from '../images/pods.jpg';
+import head_1 from '../images/headphones/hph7e.jpg';
+import heads from '../images/heads.jpg';
+import pss from '../images/pss.jpg';
+import ps_1 from '../images/speakers/spe5e.jpg';
+import mic_1 from '../images/microphones/mic2c.jpg';
+import mics from '../images/mics.jpg';
 
 const Home = () => {
-  const navigate = useNavigate(); // Programozott navigáció hook
+  const navigate = useNavigate();
 
-  /**
-   * ProductCard komponens - Újrafelhasználható termék/kategória kártya
-   */
   const ProductCard = ({ image, title, description, link, isWide }) => {
     return (
-      <div className={isWide ? 'container-wide' : 'container-narrow'}>
-        {/* Kártya háttérkép */}
-        <img src={image} alt={title} />
-        
-        {/* Szöveg overlay a kép tetején */}
-        <div className="text-overlay">
-          <h1>{title}</h1>
-          <p>{description}</p>
-          {/* Dinamikus gomb szöveg: termék vs kategória alapján */}
-          <button onClick={() => navigate(link)}>
+      <div className={`relative m-1 ${isWide ? 'flex-[6]' : 'flex-[4]'}`}>
+        <img
+          src={image}
+          alt={title}
+          className="w-full h-[450px] object-cover rounded-lg sm:h-[300px]"
+        />
+        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-white text-center shadow-lg p-3 bg-black/40 rounded-lg">
+          <h1 className="text-xl m-0">{title}</h1>
+          <p className="text-base mt-2">{description}</p>
+          <button
+            onClick={() => navigate(link)}
+            className="mt-3 px-3 py-2 text-sm bg-[#25cacf] hover:bg-[#1fa5a9] text-white rounded transition duration-300 ease-in-out"
+          >
             {link.startsWith('/product') ? 'Tovább a termékre' : 'Termékek'}
           </button>
         </div>
@@ -47,31 +35,26 @@ const Home = () => {
   };
 
   return (
-    <div>
-      {/* Videó szekció - Hero banner videóval */}
-      <div className="video-container">
-        {/* Autoplay háttér videó */}
-        <video autoPlay loop muted playsInline style={{ width: '100%', height: 'auto' }}> 
+    <div className="font-sans m-0 p-0">
+      {/* Videó szekció */}
+      <div className="relative mb-1">
+        <video autoPlay loop muted playsInline className="w-full h-auto">
           <source
             src="https://videos.pexels.com/video-files/7710237/7710237-hd_2048_1080_25fps.mp4"
             type="video/mp4"
           />
           Your browser does not support the video tag.
         </video>
-        
-        {/* Videó feletti szöveg overlay */}
-        <div className="video-text">
-          <h1>Üdvözlünk a webshopunkban!</h1>
-          <p>A legmodernebb kütyük.</p>
+        <div className="absolute top-[30%] sm:top-[25%] left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-center text-[#25cacf] z-10 drop-shadow-lg ">
+          <h1 className="text-[1.8rem] m-0 sm:text-[3.5rem]">Üdvözlünk a webshopunkban!</h1>
+          <p className="text-[1.2rem] mt-2 sm:text-[2rem]">A legmodernebb kütyük.</p>
         </div>
       </div>
 
-      {/* Termékek szekció - Kártya grid layout */}
-      <div className="container-wrapper">
-        
-        {/* 1. sor: Fülhallgatók kategória + Kiemelt fülhallgató */}
-        <div className="row">
-          {/* Széles kártya - Fülhallgatók kategória */}
+      {/* Termékek szekció */}
+      <div className="px-2">
+        {/* 1. sor */}
+        <div className="flex flex-col sm:flex-row gap-1 mb-1">
           <ProductCard
             image={pods}
             title="Fülhallgatók"
@@ -79,7 +62,6 @@ const Home = () => {
             link="/Earbuds"
             isWide={true}
           />
-          {/* Keskeny kártya - Kiemelt fülhallgató termék */}
           <ProductCard
             image={pod_1}
             title="JLab Go Sport+"
@@ -89,9 +71,8 @@ const Home = () => {
           />
         </div>
 
-        {/* 2. sor: Kiemelt fejhallgató + Fejhallgatók kategória */}
-        <div className="row">
-          {/* Keskeny kártya - Kiemelt fejhallgató termék */}
+        {/* 2. sor */}
+        <div className="flex flex-col sm:flex-row gap-1 mb-1">
           <ProductCard
             image={head_1}
             title="JLab Audio Studio Pro"
@@ -99,7 +80,6 @@ const Home = () => {
             link="/product/15"
             isWide={false}
           />
-          {/* Széles kártya - Fejhallgatók kategória */}
           <ProductCard
             image={heads}
             title="Fejhallgatók"
@@ -109,9 +89,8 @@ const Home = () => {
           />
         </div>
 
-        {/* 3. sor: Hangszórók kategória + Kiemelt hangszóró */}
-        <div className="row">
-          {/* Széles kártya - Hangszórók kategória */}
+        {/* 3. sor */}
+        <div className="flex flex-col sm:flex-row gap-1 mb-1">
           <ProductCard
             image={pss}
             title="Hangszórók"
@@ -119,7 +98,6 @@ const Home = () => {
             link="/Speakers"
             isWide={true}
           />
-          {/* Keskeny kártya - Kiemelt hangszóró termék */}
           <ProductCard
             image={ps_1}
             title="Bluetooth Speakers BS/5"
@@ -129,9 +107,8 @@ const Home = () => {
           />
         </div>
 
-        {/* 4. sor: Kiemelt mikrofon + Mikrofonok kategória */}
-        <div className="row">
-          {/* Keskeny kártya - Kiemelt mikrofon termék */}
+        {/* 4. sor */}
+        <div className="flex flex-col sm:flex-row gap-1 mb-1">
           <ProductCard
             image={mic_1}
             title="MAONO XLR/USB"
@@ -139,7 +116,6 @@ const Home = () => {
             link="/product/23"
             isWide={false}
           />
-          {/* Széles kártya - Mikrofonok kategória */}
           <ProductCard
             image={mics}
             title="Mikrofonok"
