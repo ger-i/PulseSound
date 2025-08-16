@@ -1,98 +1,64 @@
-/**
- * ProductPage komponens - Termékek megjelenítéséért felelős komponens
- * 
- * Funkciók:
- * - Termékek listázása kártya formátumban
- * - Banner kép megjelenítése kategória címmel
- * - Termékek rendezése különböző kritériumok szerint
- * - Navigáció az egyes termékek részletes oldalára
- * - Automatikus oldaltetőre görgetés
- * - Üres terméklista kezelése
- * - Reszponzív grid layout
- * 
- * Props:
- * - title: Kategória címe (pl. "Fülhallgatóink")
- * - bannerImage: Banner kép URL
- * - products: Termékek tömbje
- */
-
 import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom'; // React Router navigációhoz
-import PropTypes from 'prop-types'; // Props validáció
-import './ProductPage.css'; // ProductPage specifikus stílusok
+import { useNavigate } from 'react-router-dom';
+import PropTypes from 'prop-types';
 
-/**
- * ProductPage komponens - Termékek megjelenítése és rendezése
- */
-const ProductPage = ({ title, bannerImage, products }) => {
-    // Állapot változók
-    const [sortOption, setSortOption] = useState('default'); // Rendezési opció tárolása
-    const navigate = useNavigate(); // Programozott navigáció hook
+const ProductPage = ({ title, bannerImage, products }) => { 
+    const [sortOption, setSortOption] = useState('default'); // rendezési opció state
+    const navigate = useNavigate();
 
-    /**
-     * Komponens mount után az oldal tetejére görget
-     * Felhasználói élmény javítása - minden kategória váltásnál tetejére ugrik
-     */
     useEffect(() => {
+        // amikor az oldal betölt, az ablak tetejére görget
         window.scrollTo(0, 0);
     }, []);
 
-    /**
-     * Termékek rendezése a kiválasztott opció alapján
-     */
+    // Rendezési logika különböző opciókra
     const sortProducts = (products, option) => {
         switch (option) {
             case 'name-asc':
-                // Név szerint növekvő (A-Z) - magyar nyelvű összehasonlítás
                 return [...products].sort((a, b) => a.name.localeCompare(b.name));
             case 'name-desc':
-                // Név szerint csökkenő (Z-A) - magyar nyelvű összehasonlítás
                 return [...products].sort((a, b) => b.name.localeCompare(a.name));
             case 'price-asc':
-                // Ár szerint növekvő - legolcsóbb először
                 return [...products].sort((a, b) => a.price - b.price);
             case 'price-desc':
-                // Ár szerint csökkenő - legdrágább először
                 return [...products].sort((a, b) => b.price - a.price);
             default:
-                // Alapértelmezett sorrend - eredeti tömb sorrendje
-                return products;
+                return products; // alapértelmezett: nincs rendezés
         }
     };
 
-    // Rendezett termékek kiszámítása az aktuális rendezési opció alapján
     const sortedProducts = sortProducts(products, sortOption);
 
-    /**
-     * Termék kártya kattintás kezelése
-     */
+    // Ha egy kártyára kattintanak → átirányít a termékoldalra
     const handleCardClick = (productId) => {
         if (productId) {
-            // Navigáció az adott termék részletes oldalára
             navigate(`/product/${productId}`);
         } else {
-            // Hibakezelés érvénytelen termék ID esetén
             console.error('Érvénytelen termék azonosító');
         }
     };
 
     return (
-        <div className="product-page">
-            {/* Banner szekció - kategória kép és cím */}
-            <div className="banner">
-                <img src={bannerImage} alt={`${title} termékek bannere`} />
-                <div className="banner-text">
-                    <h1>{title}</h1>
+        <div className="text-center font-sans">
+            {/* Banner szekció */}
+            <div className="relative text-[#25cacf]">
+                <img src={bannerImage} alt={`${title} termékek bannere`} className="w-full h-auto" />
+                <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-shadow">
+                    <h1 className="text-[2.5rem] sm:text-[3.5rem] font-bold drop-shadow-lg">{title}</h1>
                 </div>
             </div>
 
-            {/* Főcím a banner alatt */}
-            <h1 className="section-title">Fedezze fel termékeinket</h1>
+            {/* Főcím */}
+            <h1 className="text-[1.8rem] sm:text-[2rem] mt-5 font-semibold">Fedezze fel termékeinket</h1>
 
             {/* Rendezési opciók dropdown */}
-            <div className="sort-options">
-                <label>Rendezés:</label>
-                <select value={sortOption} onChange={(e) => setSortOption(e.target.value)}>
+            <div className="text-left mb-5 ml-5">
+                <label className="font-bold mr-2">Rendezés:</label>
+                <select
+                    value={sortOption}
+                    onChange={(e) => setSortOption(e.target.value)} // ha változik → frissül a rendezés
+                    className="px-2 py-1 text-base border border-gray-300 rounded"
+                >
                     <option value="default">Alapértelmezett</option>
                     <option value="name-asc">Név szerint (A-Z)</option>
                     <option value="name-desc">Név szerint (Z-A)</option>
@@ -101,28 +67,30 @@ const ProductPage = ({ title, bannerImage, products }) => {
                 </select>
             </div>
 
-            {/* Termék grid - termékek megjelenítése */}
-            <div className="product-grid">
+            {/* Termék grid megjelenítés */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-5 px-5 pb-10">
                 {sortedProducts.length > 0 ? (
-                    // Termékek iterálása és kártyák létrehozása
                     sortedProducts.map((product) => (
                         <div
                             key={product.id}
-                            className="product-card"
-                            onClick={() => handleCardClick(product.id)} // Kártya kattintás kezelése
-                            style={{ cursor: 'pointer' }} // Kattintható kinézet
+                            onClick={() => handleCardClick(product.id)} // kattintás → átirányítás
+                            className="border border-gray-300 rounded-lg p-3 cursor-pointer transition duration-300 ease-in-out hover:-translate-y-1.5 hover:shadow-xl"
                         >
-                            {/* Termék kép */}
-                            <img src={product.image} alt={product.name} />
-                            {/* Termék név */}
-                            <h2>{product.name}</h2>
-                            {/* Termék ár - magyar formázás (szóközzel, Ft-tal) */}
-                            <p>{product.price.toLocaleString('hu-HU')} Ft</p>
+                            {/* Termékkép */}
+                            <img
+                                src={product.image}
+                                alt={product.name}
+                                className="w-[10rem] sm:w-[14rem] h-[10rem] sm:h-[14rem] object-contain mx-auto mb-3"
+                            />
+                            {/* Terméknév */}
+                            <h2 className="text-lg sm:text-xl font-semibold my-5">{product.name}</h2>
+                            {/* Ár */}
+                            <p className="text-gray-600 font-bold">{product.price.toLocaleString('hu-HU')} Ft</p>
                         </div>
                     ))
                 ) : (
-                    // Üres terméklista esetén megjelenő üzenet
-                    <p>Jelenleg nincsenek elérhető termékek.</p>
+                    // Ha nincs termék
+                    <p className="text-lg text-gray-500">Jelenleg nincsenek elérhető termékek.</p>
                 )}
             </div>
         </div>
