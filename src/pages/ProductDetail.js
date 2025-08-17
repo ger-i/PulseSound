@@ -3,55 +3,74 @@ import { useParams } from 'react-router-dom';
 import products from '../components/ProductsData';
 import CartContext from '../components/CartContext';
 
+// Importáljuk a szükséges React hook-okat és komponenseket.
+// useState: állapotkezelésre szolgál a komponensen belül.
+// useContext: a CartContext-ből származó adatok elérésére.
+// useEffect: mellékhatások kezelésére (pl. görgetés az oldal tetejére).
+// useParams: a React Router-ből érkező, URL-ben lévő paraméterek (pl. termékazonosító) kinyerésére.
+// products: a termékadatokat tartalmazó lokális tömb.
+// CartContext: a kosár globális állapotát kezelő kontextus.
+
 const ProductDetail = () => {
-    //Termék ID lekérése az URL-ből
+    // Az URL-ből kinyerjük a termék azonosítóját (id).
     const { id } = useParams();
 
-    //Termék keresése az adatbázisból
+    // Megkeressük a `products` tömbben azt a terméket, amelynek az `id`-je megegyezik az URL-ből kapott azonosítóval.
+    // A parseInt() függvényt használjuk, hogy a stringből számot kapjunk.
     const product = products.find(item => item.id === parseInt(id, 10));
 
-    //Kosárhoz szükséges állapotok
-    const [quantity, setQuantity] = useState(1); // Mennyiség
-    const { addToCart } = useContext(CartContext); // Kosár kontextus
-    const [mainImage, setMainImage] = useState(product ? product.image : ''); // Főkép
+    // Állapotváltozók definiálása.
+    // `quantity`: a kiválasztott termék mennyiségét tárolja, alapértelmezetten 1.
+    // `mainImage`: a termék részletes nézetén megjelenő fő képet tárolja.
+    const [quantity, setQuantity] = useState(1);
+    const { addToCart } = useContext(CartContext);
+    const [mainImage, setMainImage] = useState(product ? product.image : '');
 
-    //Oldal tetejére görgetés betöltéskor
+    // Ez a függvény felel a termék kosárba helyezéséért.
+    // Hívja az `addToCart` függvényt a `CartContext`-ből,
+    // átadva neki a termék adatait és a kiválasztott mennyiséget.
+    const handleAddToCart = () => {
+        if (product) {
+            addToCart({ ...product, quantity });
+        }
+    };
+
+    // A `useEffect` hook a komponens betöltődésekor egyszer fut le,
+    // és az oldalt a tetejére görgeti.
     useEffect(() => {
         window.scrollTo(0, 0);
     }, []);
 
-    //Főkép frissítése, ha termék változik
+    // Ez a `useEffect` hook a `product` változásakor fut le.
+    // Ha a `product` létezik és van `image` tulajdonsága,
+    // beállítja a `mainImage` állapotot a termék képére.
     useEffect(() => {
         if (product?.image) {
             setMainImage(product.image);
         }
     }, [product]);
 
-    //Hibakezelés: ha nincs termék
+    // Ha a `product` nem található, hibaüzenetet jelenít meg.
     if (!product) {
         return <h2 className="text-center text-2xl mt-10">Termék nem található</h2>;
     }
 
+    // A komponens által megjelenített JSX kód.
     return (
         <div className="w-full mx-auto px-4 pt-10">
-            {/*Felső szekció: leírás + kép */}
+            {/* Felső szekció: leírás + kép */}
             <div className="flex flex-col lg:flex-row gap-10">
-                
-                {/*Leírás és kosár gomb szekció */}
+                {/* Leírás és kosár gomb */}
                 <div className="order-1 lg:order-2 w-full lg:w-1/2 max-w-3xl mx-auto text-center">
                     <h1 className="text-2xl sm:text-3xl font-bold text-gray-800">{product.name}</h1>
-                    <p className="text-xl sm:text-2xl text-gray-600 mt-2">
-                        {product.descriptions?.[0]?.text || 'Leírás nem elérhető'}
-                    </p>
-                    <p className="text-xl sm:text-2xl font-bold text-gray-700 mt-2">
-                        Ár: {product.price} Ft
-                    </p>
+                    <p className="text-xl sm:text-2xl text-gray-600 mt-2">{product.descriptions?.[0]?.text || 'Leírás nem elérhető'}</p>
+                    <p className="text-xl sm:text-2xl font-bold text-gray-700 mt-2">Ár: {product.price} Ft</p>
 
-                    {/*Mennyiség kiválasztása + Kosárba gomb */}
+                    {/* Mennyiség + gomb */}
                     <div className="mt-6">
                         <label htmlFor="quantity" className="text-lg text-gray-800 block mb-2">MENNYISÉG:</label>
                         <div className="flex justify-center gap-2 mb-4">
-                            {/* − gomb */}
+                            {/* Mennyiség csökkentése gomb */}
                             <button
                                 type="button"
                                 className="px-4 py-2 bg-orange-600 text-white rounded-lg disabled:opacity-50 disabled:cursor-not-allowed hover:bg-orange-700 active:bg-orange-800"
@@ -60,8 +79,7 @@ const ProductDetail = () => {
                             >
                                 −
                             </button>
-
-                            {/* Mennyiség megjelenítése */}
+                            {/* Mennyiség beviteli mező (csak olvasható) */}
                             <input
                                 type="number"
                                 id="quantity"
@@ -71,8 +89,7 @@ const ProductDetail = () => {
                                 className="w-20 h-10 text-center text-lg border border-gray-300 rounded-lg bg-gray-100 shadow-inner transition-all hover:border-blue-600 focus:scale-105 focus:outline-none"
                                 style={{ appearance: 'textfield', MozAppearance: 'textfield' }}
                             />
-
-                            {/* + gomb */}
+                            {/* Mennyiség növelése gomb */}
                             <button
                                 type="button"
                                 className="px-4 py-2 bg-orange-600 text-white rounded-lg hover:bg-orange-700 active:bg-orange-800"
@@ -81,8 +98,7 @@ const ProductDetail = () => {
                                 +
                             </button>
                         </div>
-
-                        {/* Kosárba helyezés gomb */}
+                        {/* Kosárba teszem gomb */}
                         <button
                             className="bg-orange-600 text-white px-6 py-3 text-lg rounded-lg hover:bg-orange-700 active:bg-orange-800"
                             onClick={handleAddToCart}
@@ -92,16 +108,17 @@ const ProductDetail = () => {
                     </div>
                 </div>
 
-                {/*Kép és képválasztó szekció */}
+                {/* Kép és képválasztó */}
                 <div className="order-2 lg:order-1 w-full lg:w-[460px] flex flex-col lg:flex-row items-center lg:items-start gap-4">
-                    
-                    {/*Nagy kép bal oldalon */}
+                    {/* Nagy kép bal oldalon */}
                     <div className="w-[350px] h-[350px] lg:w-[460px] lg:h-[460px] border border-gray-300 rounded-xl overflow-hidden">
                         <img src={mainImage} alt={product.name} className="w-full h-full object-contain" />
                     </div>
 
-                    {/*Kis képek jobb oldalon, egymás alatt desktopon */}
+                    {/* Kis képek jobb oldalon, egymás alatt */}
                     <div className="flex lg:flex-col gap-3 mt-4 lg:mt-0">
+                        {/* Végigiterál a termék képein és megjeleníti őket kis előnézetként. */}
+                        {/* Kattintásra a `mainImage` állapot megváltozik a kiválasztott képre. */}
                         {product.images?.map((image, index) => (
                             <div
                                 key={index}
@@ -119,19 +136,19 @@ const ProductDetail = () => {
                 </div>
             </div>
 
-            {/*Részletes leírások szekció - képek és szövegek */}
+            {/* Részletes leírások (képekkel) */}
             <div className="mt-5 -mx-4 md:-mx-6 lg:-mx-8">
+                {/* Végigiterál a `dimages` (részletes leírás képei) tömbön. */}
+                {/* Minden képhez megjelenít egy átlátszó sötét hátterű feliratot. */}
                 {product.dimages?.map((image, index) => (
                     <div key={index} className="relative mb-1">
-                        {/* 🔸 Teljes szélességű kép */}
                         <img
                             src={image}
                             alt={`${product.name} ${index + 1}`}
                             loading="lazy"
                             className="w-full h-auto block object-cover"
                         />
-
-                        {/*Szövegdoboz a képen */}
+                        {/* Az abszolút pozicionált felirat */}
                         <div className="absolute top-[60%] left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-black/70 shadow-md p-5 rounded-lg text-center min-w-[300px] mx-4">
                             <h3 className="text-sm lg:text-2xl uppercase text-orange-600 mb-2">
                                 {product.descriptions[index]?.title || `Tulajdonság ${index + 1}`}
