@@ -1,4 +1,5 @@
 🎧 PulseSound – Interaktív zene webshop Reacttel
+
 🧠 Projekt célja
 
 A PulseSound egy modern, reszponzív webalkalmazás, amely zeneipari termékek (fülhallgatók, fejhallgatók, hangszórók, mikrofonok) bemutatására és értékesítésére szolgál. A cél egy olyan felhasználóbarát platform létrehozása, amely nemcsak vizuálisan vonzó, hanem technikailag is stabil, gyors és könnyen bővíthető.
