@@ -84,5 +84,5 @@ A projekt ideális példa frontend fejlesztők számára, akik szeretnék gyakor
     Jogi nyilatkozat
 
 
-    https://mediterran-restaurant.netlify.app/
+https://mediterran-restaurant.netlify.app/
     
