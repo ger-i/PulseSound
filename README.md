@@ -84,5 +84,5 @@ A projekt ideális példa frontend fejlesztők számára, akik szeretnék gyakor
     Jogi nyilatkozat
 
 
-https://pulsesound.netlify.app/
+Link: https://pulsesound.netlify.app/
     
