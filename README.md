@@ -82,3 +82,6 @@ A projekt ideális példa frontend fejlesztők számára, akik szeretnék gyakor
     Közösségi média ikonok (Facebook, Instagram)
 
     Jogi nyilatkozat
+
+
+    Link: https://mediterran-restaurant.netlify.app/
